@@ -1,0 +1,42 @@
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ClassE.Data;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+
+namespace ClassE.Classes
+{
+    public record ClassesQuery : Types.BaseQuery, IRequest<Types.SearchResult<SummaryResult>>
+    {
+        public bool All { get; init; }
+    }
+
+    internal class ClassesQueryHandler(
+        Data.IDataContext dataContext,
+        IMapper mapper)
+        : IRequestHandler<ClassesQuery, Types.SearchResult<SummaryResult>>
+    {
+        private readonly IDataContext _dataContext = dataContext;
+        private readonly IMapper _mapper = mapper;
+
+        public async Task<Types.SearchResult<SummaryResult>> Handle(ClassesQuery request, CancellationToken cancellationToken)
+        {
+            var query = _dataContext.Class.AsQueryable();
+
+            if (!request.All)
+                query = query.Where(c => c.EndDate > DateTime.Today);
+
+            return new()
+            {
+                Total = await query.CountAsync(cancellationToken),
+                Results = await query
+                    .OrderBy(s => s.StartDate)
+                    .ThenBy(s => s.DayOfWeek)
+                    .Skip(request.Offset)
+                    .Take(request.Limit)
+                    .ProjectTo<SummaryResult>(_mapper.ConfigurationProvider)
+                    .ToArrayAsync(cancellationToken),
+            };
+        }
+    }
+}
