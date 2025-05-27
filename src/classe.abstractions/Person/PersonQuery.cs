@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClassE.Person
 {
-    public record PersonQuery : Types.BaseQuery, IRequest<Types.SearchResult<SummaryResult>>
+    public record PersonQuery : Types.BaseQuery<SummaryResult>
     {
     }
 

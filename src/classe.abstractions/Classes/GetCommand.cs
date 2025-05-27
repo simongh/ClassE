@@ -19,7 +19,7 @@ namespace ClassE.Classes
 
         public async Task<ClassResult> Handle(GetCommand request, CancellationToken cancellationToken)
         {
-            return (await _dataContext.Class
+            return (await _dataContext.Classes
                 .Where(c => c.Id == request.Id)
                 .ProjectTo<ClassResult>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken))

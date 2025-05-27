@@ -18,7 +18,7 @@ namespace ClassE.Person
         public IEnumerable<BookingResult> Bookings { get; set; } = null!;
         public IEnumerable<BookingResult> WaitingList { get; set; } = null!;
 
-        public IEnumerable<PaymentResult> Payments { get; set; } = null!;
+        public IEnumerable<Models.PaymentModel> Payments { get; set; } = null!;
 
         public void Mapping(Profile profile)
         {

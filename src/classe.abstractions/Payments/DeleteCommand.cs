@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClassE.Classes
+namespace ClassE.Payments
 {
     public record DeleteCommand : IRequest
     {
@@ -14,12 +14,15 @@ namespace ClassE.Classes
 
         public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
-            var rows = await _dataContext.Classes
-                .Where(c => c.Id == request.Id)
-                .ExecuteDeleteAsync(cancellationToken);
+            var payment = (await _dataContext.Payments
+                .Include(p => p.Person)
+                .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken))
+                ?? throw new NotFoundException();
 
-            if (rows == 0)
-                throw new NotFoundException();
+            payment.Person.ClassBalance -= payment.Classes;
+            _dataContext.Payments.Remove(payment);
+
+            await _dataContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

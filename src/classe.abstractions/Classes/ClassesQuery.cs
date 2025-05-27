@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClassE.Classes
 {
-    public record ClassesQuery : Types.BaseQuery, IRequest<Types.SearchResult<SummaryResult>>
+    public record ClassesQuery : Types.BaseQuery<SummaryResult>
     {
         public bool All { get; init; }
     }
@@ -21,7 +21,7 @@ namespace ClassE.Classes
 
         public async Task<Types.SearchResult<SummaryResult>> Handle(ClassesQuery request, CancellationToken cancellationToken)
         {
-            var query = _dataContext.Class.AsQueryable();
+            var query = _dataContext.Classes.AsQueryable();
 
             if (!request.All)
                 query = query.Where(c => c.EndDate > DateTime.Today);

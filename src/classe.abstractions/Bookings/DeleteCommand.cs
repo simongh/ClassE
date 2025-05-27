@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClassE.Classes
+namespace ClassE.Bookings
 {
     public record DeleteCommand : IRequest
     {
@@ -14,8 +14,8 @@ namespace ClassE.Classes
 
         public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
         {
-            var rows = await _dataContext.Classes
-                .Where(c => c.Id == request.Id)
+            var rows = await _dataContext.Bookings
+                .Where(b => b.Id == request.Id)
                 .ExecuteDeleteAsync(cancellationToken);
 
             if (rows == 0)

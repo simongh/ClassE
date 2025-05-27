@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace ClassE.Classes
+namespace ClassE.Models
 {
     public record BookingResult : Types.IMapFrom<Entities.Booking>
     {

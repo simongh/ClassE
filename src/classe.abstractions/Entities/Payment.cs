@@ -10,5 +10,9 @@
 
         public int Classes { get; set; }
         public byte[]? RowVersion { get; init; }
+
+        public int PersonId { get; set; }
+
+        public Person Person { get; set; } = null!;
     }
 }

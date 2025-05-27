@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ClassE.Models;
 
 namespace ClassE.Classes
 {

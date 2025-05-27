@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClassE.Venue
 {
-    public record VenueQuery : Types.BaseQuery, IRequest<Types.SearchResult<SummaryResult>>
+    public record VenueQuery : Types.BaseQuery<SummaryResult>
     {
     }
 

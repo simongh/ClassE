@@ -5,7 +5,7 @@ namespace ClassE.Venue
 {
     public record UpdateVenueCommand : IRequest<int>
     {
-        public int? Id { get; set; }
+        public int? Id { get; init; }
 
         public string Name { get; init; } = null!;
 

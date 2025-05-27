@@ -7,7 +7,7 @@ namespace ClassE.Classes
 {
     public record UpdateCommand : IRequest<int>
     {
-        public int? Id { get; set; }
+        public int? Id { get; init; }
 
         public DayOfWeek DayOfWeek { get; init; }
         public DateTime StartDate { get; init; }
@@ -18,7 +18,7 @@ namespace ClassE.Classes
 
         public int Duration { get; init; }
 
-        public int VenueId { get; init; }
+        public int Venue { get; init; }
 
         public float Cost { get; init; }
     }
@@ -31,20 +31,20 @@ namespace ClassE.Classes
         {
             Entities.Class theClass;
 
-            var found = await _dataContext.Venues.AnyAsync(v => v.Id == request.VenueId);
+            var found = await _dataContext.Venues.AnyAsync(v => v.Id == request.Venue);
             if (!found)
             {
-                throw new ValidationException([new ValidationFailure(nameof(request.VenueId), $"Venue '{request.VenueId}' was not found")]);
+                throw new ValidationException([new ValidationFailure(nameof(request.Venue), $"Venue '{request.Venue}' was not found")]);
             }
 
             if (request.Id == null)
             {
                 theClass = new();
-                _dataContext.Class.Add(theClass);
+                _dataContext.Classes.Add(theClass);
             }
             else
             {
-                theClass = (await _dataContext.Class
+                theClass = (await _dataContext.Classes
                     .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken))
                     ?? throw new NotFoundException();
             }
@@ -54,7 +54,7 @@ namespace ClassE.Classes
             theClass.Cost = request.Cost;
             theClass.StartTime = (byte)request.StartTime;
             theClass.Duration = (byte)request.Duration;
-            theClass.VenueId = request.VenueId;
+            theClass.VenueId = request.Venue;
 
             await _dataContext.SaveChangesAsync(cancellationToken);
 

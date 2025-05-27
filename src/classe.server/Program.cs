@@ -9,26 +9,21 @@ namespace ClassE
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services
+                .Configure<Types.Options>(builder.Configuration.GetSection("classe"))
                 .AddDbContext<Data.DataContext>(options =>
                 {
-                    options.UseSqlite(builder.Configuration.GetConnectionString("classe"));
-                });
-            //.Configure<Types.Options>(builder.Configuration.GetSection("timeoff"))
-            //.AddApplicationServices(options =>
-            //{
-            //    var provider = builder.Configuration.GetValue("Provider", "sqlite");
-            //    var cs = builder.Configuration.GetConnectionString("timeoff");
-            //    _ = provider switch
-            //    {
-            //        "sqlserver" => options
-            //            .UseSqlServer(cs, sql => sql.MigrationsAssembly("Timeoff.SqlServer")),
-            //        _ => options
-            //            .UseSqlite(cs, sql => sql.MigrationsAssembly("Timeoff.Sqlite"))
-            //    };
-            //})
-            // Add services to the container.
+                    var provider = builder.Configuration.GetValue("Provider", "sqlite");
+                    var cs = builder.Configuration.GetConnectionString("classe");
+
+                    _ = provider switch
+                    {
+                        _ => options.UseSqlite(cs)
+                    };
+                })
+                .AddApplicationServices();
 
             builder.Services.AddControllers();
+            builder.Services.ConfigureJson();
 
             var app = builder.Build();
 
@@ -38,11 +33,8 @@ namespace ClassE
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.MapControllers();
-
             app.MapFallbackToFile("/index.html");
 
             app.Run();
