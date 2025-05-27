@@ -45,5 +45,49 @@ namespace ClassE.Controllers.Api
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpGet("{classId:id}/sessions")]
+        public async Task<IActionResult> SessionsAsync(int classId, [FromQuery] Sessions.SessionsQuery query)
+        {
+            return Ok(await _mediator.Send(query with
+            {
+                Class = classId,
+            }));
+        }
+
+        [HttpPost("{classId:int}/sessions")]
+        public async Task<IActionResult> CreateSessionAsync(int classId, Sessions.UpdateCommand command)
+        {
+            var result = await _mediator.Send(command with
+            {
+                Class = classId
+            });
+
+            return Created();
+        }
+
+        [HttpGet("{class:int}/sessions/{id:int}")]
+        public async Task<IActionResult> GetSessionAsync([FromRoute] Sessions.GetCommand command)
+        {
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpPut("{classId:int}/sessions/{id:int}")]
+        public async Task<IActionResult> UpdateSessionAsync(int classId, int id, Sessions.UpdateCommand command)
+        {
+            await _mediator.Send(command with
+            {
+                Class = classId,
+                Id = id
+            });
+            return NoContent();
+        }
+
+        [HttpDelete("{class:id}/sessions/{id:int}")]
+        public async Task<IActionResult> DeleteSessionAsync([FromRoute] Sessions.DeleteCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }
