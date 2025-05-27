@@ -79,5 +79,14 @@ namespace ClassE.Controllers.Api
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpGet("{id:int}/sessions")]
+        public async Task<IActionResult> SessionsQueryAsync(int id, [FromQuery] Sessions.SessionsQuery query)
+        {
+            return Ok(await _mediator.Send(query with
+            {
+                Person = id
+            }));
+        }
     }
 }

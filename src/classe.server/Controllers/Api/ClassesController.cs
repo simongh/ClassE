@@ -63,7 +63,11 @@ namespace ClassE.Controllers.Api
                 Class = classId
             });
 
-            return Created();
+            return CreatedAtAction(nameof(GetSessionAsync), new
+            {
+                Class = classId,
+                Id = result,
+            }, null);
         }
 
         [HttpGet("{class:int}/sessions/{id:int}")]

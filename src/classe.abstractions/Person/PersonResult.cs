@@ -20,6 +20,8 @@ namespace ClassE.Person
 
         public IEnumerable<Models.PaymentModel> Payments { get; set; } = null!;
 
+        public IEnumerable<SessionResult> Sessions { get; set; } = null!;
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Entities.Person, PersonResult>()
@@ -31,6 +33,9 @@ namespace ClassE.Person
                     .OrderBy(b => b.Class.DayOfWeek)))
                 .ForMember(p => p.Payments, config => config.MapFrom(p => p.Payments
                     .OrderByDescending(p => p.Created)
+                    .Take(5)))
+                .ForMember(p => p.Sessions, config => config.MapFrom(p => p.Sessions
+                    .OrderByDescending(s => s.Date)
                     .Take(5)));
         }
     }

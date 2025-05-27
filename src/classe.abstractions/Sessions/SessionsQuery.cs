@@ -12,7 +12,9 @@ namespace ClassE.Sessions
 
         public DateTime? EndDate { get; init; }
 
-        public int Class { get; init; }
+        public int? Class { get; init; }
+
+        public int? Person { get; init; }
     }
 
     public class SessionsQueryHandler(
@@ -24,8 +26,13 @@ namespace ClassE.Sessions
 
         public async Task<Types.SearchResult<SummaryResult>> Handle(SessionsQuery request, CancellationToken cancellationToken)
         {
-            var query = _dataContext.Sessions
-                .Where(s => s.ClassId == request.Class);
+            var query = _dataContext.Sessions.AsQueryable();
+
+            if (request.Class.HasValue)
+                query = query.Where(s => s.ClassId == request.Class);
+
+            if (request.Person.HasValue)
+                query = query.Where(s => s.Attendees.Any(a => a.Id == request.Person));
 
             if (request.StartDate.HasValue)
                 query = query.Where(s => s.Date >= request.StartDate.Value);

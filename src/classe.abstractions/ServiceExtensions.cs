@@ -20,6 +20,8 @@ namespace ClassE
 
             services.AddTransient<Validators.QueryValidator>();
 
+            services.AddTransient<IValidator<Attendees.UpdateCommand>, Attendees.UpdateCommandValidator>();
+
             services.AddTransient<IValidator<Classes.ClassesQuery>, Classes.ClassesQueryValidator>();
             services.AddTransient<IValidator<Classes.UpdateCommand>, Classes.UpdateCommandValidator>();
 
@@ -28,6 +30,8 @@ namespace ClassE
 
             services.AddTransient<IValidator<Person.PersonQuery>, Person.PersonQueryValidator>();
             services.AddTransient<IValidator<Person.UpdateCommand>, Person.UpdateCommandValidator>();
+
+            services.AddTransient<IValidator<Sessions.SessionsQuery>, Sessions.SessionsQueryValidator>();
 
             services.AddTransient<IValidator<Venue.VenueQuery>, Venue.VenueQueryValidator>();
             services.AddTransient<IValidator<Venue.UpdateVenueCommand>, Venue.UpdateCommandValidator>();
