@@ -24,6 +24,7 @@ namespace ClassE
 
             builder.Services.AddControllers();
             builder.Services.ConfigureJson();
+            builder.Services.AddAutoMapper(config => { });
 
             var app = builder.Build();
 

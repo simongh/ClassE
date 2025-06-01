@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false
+          "standalone": true
         },
         "@schematics/angular:directive": {
           "standalone": false
@@ -30,8 +30,8 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
-            "scripts": [],
+            "styles": ["node_modules/@tabler\\core/dist/css/tabler.css","src/styles.css"],
+            "scripts": ["node_modules/@tabler\\core/dist/js/tabler.js"],
             "browser": "src/main.ts"
           },
           "configurations": {

@@ -12,8 +12,8 @@ namespace ClassE.Controllers.Api
         [HttpPost("")]
         public async Task<IActionResult> CreateAsync(Bookings.UpdateCommand command)
         {
-            await _mediator.Send(command);
-            return Created();
+            var id = await _mediator.Send(command);
+            return Created(default(string), id);
         }
 
         [HttpPut("{id:int}")]

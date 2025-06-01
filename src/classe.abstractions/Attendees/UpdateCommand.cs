@@ -30,7 +30,7 @@ namespace ClassE.Attendees
                 .CountAsync(cancellationToken);
 
             if (found != request.People.Count())
-                throw new ValidationException([new ValidationFailure(nameof(request.People), $"{request.People.Count() - found} people were not found")])
+                throw new ValidationException([new ValidationFailure(nameof(request.People), $"{request.People.Count() - found} people were not found")]);
 
             var toAction = session.Attendees
                 .Where(a => !request.People.Contains(a.Id));

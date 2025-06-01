@@ -20,7 +20,7 @@ namespace ClassE.Controllers.Api
         {
             var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetAsync), result, null);
+            return CreatedAtAction(nameof(GetAsync), result, result);
         }
 
         [HttpGet("{id:int}")]
@@ -46,7 +46,7 @@ namespace ClassE.Controllers.Api
             return NoContent();
         }
 
-        [HttpGet("{classId:id}/sessions")]
+        [HttpGet("{classId:int}/sessions")]
         public async Task<IActionResult> SessionsAsync(int classId, [FromQuery] Sessions.SessionsQuery query)
         {
             return Ok(await _mediator.Send(query with
@@ -67,7 +67,7 @@ namespace ClassE.Controllers.Api
             {
                 Class = classId,
                 Id = result,
-            }, null);
+            }, result);
         }
 
         [HttpGet("{class:int}/sessions/{id:int}")]
@@ -87,7 +87,7 @@ namespace ClassE.Controllers.Api
             return NoContent();
         }
 
-        [HttpDelete("{class:id}/sessions/{id:int}")]
+        [HttpDelete("{class:int}/sessions/{id:int}")]
         public async Task<IActionResult> DeleteSessionAsync([FromRoute] Sessions.DeleteCommand command)
         {
             await _mediator.Send(command);

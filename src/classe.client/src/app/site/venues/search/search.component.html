@@ -1,0 +1,29 @@
+<app-page-header>Venue Management</app-page-header>
+<div class="page-body">
+  <div class="container-xl">
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th class="w-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of venues.value()?.results; track $index) {
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.phone }}</td>
+              <td><a [routerLink]="['venue', item.id]">Edit</a></td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

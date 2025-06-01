@@ -1,22 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '@components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [],
+  imports: [RouterOutlet, SidebarComponent],
 })
-export class AppComponent {
-  readonly #httpClient = inject(HttpClient);
-
-  protected readonly forecasts = toSignal(this.#httpClient.get<WeatherForecast[]>('/weatherforecast'));
-}
+export class AppComponent {}

@@ -1,0 +1,35 @@
+<app-page-header>Class Management</app-page-header>
+<div class="page-body">
+  <div class="container-xl">
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Dates</th>
+              <th>Week Day</th>
+              <th>Time</th>
+              <th>Venue</th>
+              <th>Booked</th>
+              <th>Waiting</th>
+              <th class="w-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of classes.value()?.results; track $index) {
+            <tr>
+              <td>{{ item.startDate }} - {{ item.endDate }}</td>
+              <td>{{ item.dayOfWeek }}</td>
+              <td>{{ item.startTime }} ({{item.duration}} mins)</td>
+              <td>{{item.venue.name}}</td>
+              <td>{{item.booked}}</td>
+              <td>{{item.waiting}}</td>
+              <td><a [routerLink]="[item.id]">Edit</a></td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
