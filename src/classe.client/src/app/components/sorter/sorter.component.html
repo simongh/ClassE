@@ -1,0 +1,11 @@
+<a
+  class="table-sort"
+  [class.desc]="query().sortBy === field() && query().dir === 'desc'"
+  [class.asc]="query().sortBy === field() && query().dir != 'desc'"
+  routerLink="."
+  [queryParams]="{
+    sortBy: field(),
+    dir: query().sortBy != field() || query().dir === 'desc' ? null : 'desc'
+  }"
+  ><ng-content /></a
+>

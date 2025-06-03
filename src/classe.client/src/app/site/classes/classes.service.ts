@@ -15,7 +15,7 @@ export class ClassesService {
 
   public search(query: { all: boolean } & SearchQuery) {
     return of<SearchResults<Summary>>({
-      total: 0,
+      total: 41,
       results: [{
         id: 0,
         startDate: '2025-05-01',

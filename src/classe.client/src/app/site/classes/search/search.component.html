@@ -2,33 +2,48 @@
 <div class="page-body">
   <div class="container-xl">
     <div class="card">
-      <div class="card-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Dates</th>
-              <th>Week Day</th>
-              <th>Time</th>
-              <th>Venue</th>
-              <th>Booked</th>
-              <th>Waiting</th>
-              <th class="w-1"></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (item of classes.value()?.results; track $index) {
-            <tr>
-              <td>{{ item.startDate }} - {{ item.endDate }}</td>
-              <td>{{ item.dayOfWeek }}</td>
-              <td>{{ item.startTime }} ({{item.duration}} mins)</td>
-              <td>{{item.venue.name}}</td>
-              <td>{{item.booked}}</td>
-              <td>{{item.waiting}}</td>
-              <td><a [routerLink]="[item.id]">Edit</a></td>
-            </tr>
-            }
-          </tbody>
-        </table>
+      <table class="table card-table">
+        <thead>
+          <tr>
+            <th>
+              <app-sorter [query]="qry()" field="startDate">Dates</app-sorter>
+            </th>
+            <th><app-sorter [query]="qry()" field="dayOfWeek">Week Day</app-sorter></th>
+            <th>Time</th>
+            <th>
+              <app-sorter [query]="qry()" field="venue">Venue</app-sorter>
+            </th>
+            <th>Booked</th>
+            <th>Waiting</th>
+            <th class="w-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of classes.value()?.results; track $index) {
+          <tr>
+            <td>{{ item.startDate }} - {{ item.endDate }}</td>
+            <td>{{ item.dayOfWeek }}</td>
+            <td>{{ item.startTime }} ({{ item.duration }} mins)</td>
+            <td>{{ item.venue.name }}</td>
+            <td>{{ item.booked }}</td>
+            <td>{{ item.waiting }}</td>
+            <td><a [routerLink]="[item.id]">Edit</a></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      <div class="card-footer">
+        <div class="row g-2 justify-content-center justify-content-sm-between">
+          <div class="col-auto align-items-center">
+            <p class="m-0 text-secondary">
+              Showing <strong>{{ classes.value()?.results?.length }}</strong> of
+              <strong>{{ classes.value()?.total }}</strong> classes
+            </p>
+          </div>
+          <div class="col-auto">
+            <app-pager [total]="classes.value()?.total ?? 0" [query]="qry()" />
+          </div>
+        </div>
       </div>
     </div>
   </div>

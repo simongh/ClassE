@@ -1,21 +1,29 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { SearchQuery } from '@app-types/search-query';
-import { PageHeaderComponent } from "@components/page-header/page-header.component";
+import { injectQueryParams } from 'ngxtension/inject-query-params';
+
+import { withDefaultFilters } from '@app-types/search-query';
+import { PageHeaderComponent } from '@components/page-header/page-header.component';
+import { PagerComponent } from '@components/pager/pager.component';
+import { SorterComponent } from "@components/sorter/sorter.component";
 import { ClassesService } from '../classes.service';
 
 @Component({
   selector: 'app-search',
-  imports: [PageHeaderComponent,RouterLink],
+  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
   readonly #classSvc = inject(ClassesService);
 
+  protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
+
   protected readonly classes = rxResource({
-    request: () => ({ all: false, ...new SearchQuery() }),
+    request: () => {
+      return { ...this.qry(), all: false };
+    },
     loader: (params) => this.#classSvc.search(params.request),
   });
 }
