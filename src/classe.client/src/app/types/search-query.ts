@@ -1,5 +1,4 @@
 import { HttpParams } from '@angular/common/http';
-import { signal } from '@angular/core';
 import { Params } from '@angular/router';
 
 export class SearchQuery {

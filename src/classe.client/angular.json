@@ -27,11 +27,21 @@
               "base": "dist/classe.client"
             },
             "index": "src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/@tabler\\core/dist/css/tabler.css","src/styles.css"],
-            "scripts": ["node_modules/@tabler\\core/dist/js/tabler.js"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/@tabler\\core/dist/css/tabler.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/@tabler\\core/dist/js/tabler.js"
+            ],
             "browser": "src/main.ts"
           },
           "configurations": {
@@ -84,15 +94,39 @@
           "builder": "@angular-builders/jest:run",
           "options": {
             "configPath": "./jest.config.ts",
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
             "scripts": [],
-            "karmaConfig": ["karma.conf.js"]
+            "karmaConfig": [
+              "karma.conf.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

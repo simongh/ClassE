@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SearchResults } from '@app-types/search-results';
 import { Summary } from './summary';
 import { of } from 'rxjs';

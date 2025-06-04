@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EMPTY, of } from 'rxjs';
 import { SearchResults } from '@app-types/search-results';
@@ -46,6 +46,7 @@ export class PeopleService {
     return this.#httpClient.delete(`/api/people/${id}`);
   }
 
+  // eslint-disanpmble-next-line @typescript-eslint/no-unused-vars
   public update(id: number, person: { firstName: string }) {
     return EMPTY;
   }
