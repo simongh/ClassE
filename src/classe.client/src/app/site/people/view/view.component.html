@@ -1,0 +1,33 @@
+<app-page-header>People Management</app-page-header>
+
+<div class="page-body">
+  <div class="container-xl">
+    <div class="row row-cards">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-3 col-form-label">First Name</div>
+              <div class="col form-control-plaintext">
+                {{ person.value()?.firstName }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-3 col-form-label">Last Name</div>
+              <div class="col form-control-plaintext">
+                {{ person.value()?.lastName }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Payments</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

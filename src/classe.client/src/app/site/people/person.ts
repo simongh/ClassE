@@ -6,7 +6,7 @@ export interface Person {
   lastName: string;
   email: string | null;
   phone: string | null;
-  classBalance: number;
+  credits: number;
   bookings: Booking[];
   waitingList: Booking[];
   payments: Payment[];

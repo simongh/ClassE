@@ -8,6 +8,6 @@
 
         public float Amount { get; init; }
 
-        public int Classes { get; init; }
+        public int Credits { get; init; }
     }
 }

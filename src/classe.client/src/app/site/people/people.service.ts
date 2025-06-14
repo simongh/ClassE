@@ -1,10 +1,12 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EMPTY, of } from 'rxjs';
-import { SearchResults } from '@app-types/search-results';
+
 import { SearchQuery, toParams } from '@app-types/search-query';
-import { Summary } from './summary';
+import { SearchResults } from '@app-types/search-results';
+
 import { Person } from './person';
+import { Summary } from './summary';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +16,15 @@ export class PeopleService {
   public search(query: SearchQuery) {
     return of<SearchResults<Summary>>({
       total: 0,
-      results: [{
-        id: 0,
-        firstName: 'bob',
-        lastName: 'bobson',
-        email: 'bob@bobson.int',
-        phone: null
-      }],
+      results: [
+        {
+          id: 0,
+          firstName: 'bob',
+          lastName: 'bobson',
+          email: 'bob@bobson.int',
+          phone: null,
+        },
+      ],
     });
     const p = toParams(query);
     return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
@@ -30,11 +34,11 @@ export class PeopleService {
 
   public get(id: number) {
     return of<Person>({
-      firstName: '',
-      lastName: '',
-      email: null,
+      firstName: 'Simon',
+      lastName: 'Halsey',
+      email: 'simon@thehalseys.uk',
       phone: null,
-      classBalance: 0,
+      credits: 0,
       bookings: [],
       waitingList: [],
       payments: [],

@@ -13,7 +13,7 @@ namespace ClassE.Person
 
         public string? Phone { get; init; }
 
-        public int ClassBalance { get; init; }
+        public int Credits { get; init; }
 
         public IEnumerable<BookingResult> Bookings { get; set; } = null!;
         public IEnumerable<BookingResult> WaitingList { get; set; } = null!;

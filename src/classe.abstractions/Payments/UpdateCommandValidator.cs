@@ -6,7 +6,7 @@ namespace ClassE.Payments
     {
         public UpdateCommandValidator()
         {
-            RuleFor(m => m.Classes)
+            RuleFor(m => m.Credits)
                 .GreaterThanOrEqualTo(0);
         }
     }

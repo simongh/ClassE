@@ -8,7 +8,7 @@
 
         public float Amount { get; set; }
 
-        public int Classes { get; set; }
+        public int Credits { get; set; }
         public byte[]? RowVersion { get; init; }
 
         public int PersonId { get; set; }

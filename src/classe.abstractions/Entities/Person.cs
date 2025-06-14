@@ -12,7 +12,7 @@
 
         public string? Phone { get; set; }
 
-        public int ClassBalance { get; set; }
+        public int Credits { get; set; }
 
         public byte[]? RowVersion { get; init; }
         public ICollection<Session> Sessions { get; set; } = [];
