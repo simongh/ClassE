@@ -1,12 +1,14 @@
 import { Component, inject, numberAttribute } from '@angular/core';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { injectParams } from 'ngxtension/inject-params';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 import { PeopleService } from '../people.service';
+import { PaymentModalComponent } from "./payment-modal/payment-modal.component";
 
 @Component({
   selector: 'app-view',
-  imports: [PageHeaderComponent],
+  imports: [PageHeaderComponent, DatePipe, CurrencyPipe, PaymentModalComponent],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css',
 })

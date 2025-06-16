@@ -41,7 +41,14 @@ export class PeopleService {
       credits: 0,
       bookings: [],
       waitingList: [],
-      payments: [],
+      payments: [
+        {
+          id: 0,
+          created: '2025-05-01',
+          amount: 10.00,
+          classes: 5
+        }
+      ],
     });
     return this.#httpClient.get<Person>(`/api/people/${id}`);
   }

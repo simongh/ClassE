@@ -1,0 +1,51 @@
+<div class="modal" tabindex="-1" id="paymentModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Payment</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="row">
+            <div class="col-4">
+              <label for="date" class="form-label">Date</label>
+              <input type="date" class="form-control" formControlName="date" />
+            </div>
+            <div class="col-4">
+              <label for="amount" class="form-label">Amount</label>
+              <input type="number" class="form-control" formControlName="amount" />
+            </div>
+            <div class="col-4">
+              <label for="credits" class="form-label">Credits</label>
+              <input type="number" class="form-control" formControlName="credits" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">{{form.value.date}}</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+          Cancel </a>
+        <button class="btn btn-primary ms-auto" (click)="add()">
+          <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-1">
+            <path d="M12 5l0 14" />
+            <path d="M5 12l14 0" />
+          </svg>
+          Add new payment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

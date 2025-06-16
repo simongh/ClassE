@@ -18,16 +18,63 @@
                 {{ person.value()?.lastName }}
               </div>
             </div>
+            <div class="row mb-3">
+              <div class="col-3 col-form-label">Email</div>
+              <div class="col form-control-plaintext">
+                {{ person.value()?.email }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-3 col-form-label">Phone</div>
+              <div class="col form-control-plaintext">
+                {{ person.value()?.phone }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="card">
-          <div class="card-body">
-            <h3 class="card-title">Payments</h3>
+          <div class="card-header">
+            <div class="row w-full">
+              <div class="col"><h3 class="card-title">Payments</h3></div>
+              <div class="col-md-auto">
+                <div class="btn-list">
+                  <a
+                    class="btn btn-0"
+                    data-bs-toggle="modal"
+                    data-bs-target="#paymentModal"
+                    >Add</a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
+          <table class="table card-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Credits</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of person.value()?.payments; track $index) {
+              <tr>
+                <td>{{ item.created | date : "dd MMM yyyy" }}</td>
+                <td>{{ item.amount | currency }}</td>
+                <td>{{ item.classes }}</td>
+              </tr>
+              } @empty {
+              <tr>
+                <td colspan="3" class="text-center">No payments made</td>
+              </tr>
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-payment-modal />
