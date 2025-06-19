@@ -1,8 +1,10 @@
-import { Component, computed, input } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
 import { SearchQuery } from '@app-types/search-query';
-import { SvgComponent } from "../svg.component";
+
+import { SvgComponent } from '../svg.component';
 
 @Component({
   selector: 'app-pager',
@@ -15,9 +17,9 @@ export class PagerComponent {
 
   public readonly query = input<SearchQuery>(new SearchQuery());
 
-  public readonly offset = computed(()=> this.query().offset ?? 0);
+  public readonly offset = computed(() => this.query().offset ?? 0);
 
-  public readonly limit = computed(()=>this.query().limit ?? 20);
+  public readonly limit = computed(() => this.query().limit ?? 20);
 
   protected readonly current = computed(() => this.offset() / this.limit());
 

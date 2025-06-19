@@ -1,4 +1,5 @@
 import { dateString } from '@app-types/dateString';
+
 import { Booking } from './booking';
 
 export interface Person {

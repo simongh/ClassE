@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { WeatherComponent } from './site/weather/weather.component';
 
 export const routes: Routes = [

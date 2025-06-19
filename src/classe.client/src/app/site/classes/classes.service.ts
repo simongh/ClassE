@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { of } from 'rxjs';
+
+import { dateString } from '@app-types/dateString';
 import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
-import { Summary } from './summary';
-import { of } from 'rxjs';
+
 import { Class } from './class';
-import { dateString } from '@app-types/dateString';
+import { Summary } from './summary';
+
 
 @Injectable({
   providedIn: 'root',
@@ -30,15 +33,15 @@ export class ClassesService {
         }
       }],
     });
-    let p = toParams(query);
+    // let p = toParams(query);
 
-    if (query.all) {
-      p = p.set('all', query.all);
-    }
+    // if (query.all) {
+    //   p = p.set('all', query.all);
+    // }
 
-    return this.#httpClient.get<SearchResults<Summary>>('/api/classes', {
-      params: p,
-    });
+    // return this.#httpClient.get<SearchResults<Summary>>('/api/classes', {
+    //   params: p,
+    // });
   }
 
   public get(id: number) {

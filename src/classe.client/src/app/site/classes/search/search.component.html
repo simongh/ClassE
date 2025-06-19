@@ -35,7 +35,7 @@
       <app-card-footer>
         Showing <strong>{{ classes.value()?.results?.length }}</strong> of
         <strong>{{ classes.value()?.total }}</strong> classes
-        
+
         <app-pager [total]="classes.value()?.total ?? 0" [query]="qry()" />
       </app-card-footer>
     </app-card>

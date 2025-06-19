@@ -1,12 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { CardsModule } from '@components/cards';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { injectQueryParams } from 'ngxtension/inject-query-params';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { withDefaultFilters } from '@app-types/search-query';
+
+import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
-import { SorterComponent } from '@components/sorter/sorter.component';
 import { PagerComponent } from '@components/pager/pager.component';
+import { SorterComponent } from '@components/sorter/sorter.component';
+
+import { withDefaultFilters } from '@app-types/search-query';
+
 import { PaymentsService } from '../payments.service';
 
 @Component({

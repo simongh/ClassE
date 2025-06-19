@@ -1,13 +1,14 @@
-import { Component, inject, numberAttribute } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { Component, inject, numberAttribute } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { injectParams } from 'ngxtension/inject-params';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { injectParams } from 'ngxtension/inject-params';
 
 import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
+
 import { PeopleService } from '../people.service';
-import { PaymentModalComponent } from "./payment-modal/payment-modal.component";
+import { PaymentModalComponent } from './payment-modal/payment-modal.component';
 
 @Component({
   selector: 'app-view',

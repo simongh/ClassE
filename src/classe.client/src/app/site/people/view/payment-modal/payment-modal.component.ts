@@ -1,6 +1,7 @@
-import { Component, inject} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { PaymentsService } from './payments.service';
 
 @Component({

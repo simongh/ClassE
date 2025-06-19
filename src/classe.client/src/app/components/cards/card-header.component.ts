@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+
 import { CardTitleComponent } from './card-title.component';
 
 @Component({

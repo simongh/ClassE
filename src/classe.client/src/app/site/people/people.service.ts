@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { EMPTY, of } from 'rxjs';
 
 import { SearchQuery, toParams } from '@app-types/search-query';
@@ -13,6 +13,7 @@ import { Summary } from './summary';
 })
 export class PeopleService {
   readonly #httpClient = inject(HttpClient);
+
   public search(query: SearchQuery) {
     return of<SearchResults<Summary>>({
       total: 0,
@@ -26,10 +27,10 @@ export class PeopleService {
         },
       ],
     });
-    const p = toParams(query);
-    return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
-      params: p,
-    });
+    // const p = toParams(query);
+    // return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
+    //   params: p,
+    // });
   }
 
   public get(id: number) {
@@ -50,7 +51,7 @@ export class PeopleService {
         }
       ],
     });
-    return this.#httpClient.get<Person>(`/api/people/${id}`);
+    // return this.#httpClient.get<Person>(`/api/people/${id}`);
   }
 
   public delete(id: number) {

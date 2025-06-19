@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CardsModule } from '@components/cards';
 
+import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 
 @Component({

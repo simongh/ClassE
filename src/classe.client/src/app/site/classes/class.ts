@@ -1,7 +1,8 @@
 import { dayOfWeek } from '@app-types/dayOfWeek';
 import { timeString } from '@app-types/timeString';
-import { Venue } from './venue';
+
 import { Booking } from './booking';
+import { Venue } from './venue';
 
 export interface Class {
   dayOfWeek: dayOfWeek;

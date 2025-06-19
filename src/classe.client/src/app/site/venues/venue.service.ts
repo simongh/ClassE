@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { SearchResults } from '@app-types/search-results';
-import { Summary } from './summary';
 import { of } from 'rxjs';
-import { Venue } from './venue';
+
 import { SearchQuery, toParams } from '@app-types/search-query';
+import { SearchResults } from '@app-types/search-results';
+
+import { Summary } from './summary';
+import { Venue } from './venue';
 
 @Injectable({
   providedIn: 'root',
@@ -15,17 +17,19 @@ export class VenueService {
   public search(query: SearchQuery) {
     return of<SearchResults<Summary>>({
       total: 0,
-      results: [{
-        id: 0,
-        name: 'the hall',
-        email: null,
-        phone: null,
-      }],
+      results: [
+        {
+          id: 0,
+          name: 'the hall',
+          email: null,
+          phone: null,
+        },
+      ],
     });
-    const p = toParams(query);
-    return this.#httpClient.get<SearchResults<Summary>>('/api/venues', {
-      params: p,
-    });
+    // const p = toParams(query);
+    // return this.#httpClient.get<SearchResults<Summary>>('/api/venues', {
+    //   params: p,
+    // });
   }
 
   public get(id: number) {

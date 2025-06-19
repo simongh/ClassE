@@ -6,9 +6,7 @@
         <thead>
           <tr>
             <th>
-              <app-sorter [query]="qry()" field="date"
-                >Date</app-sorter
-              >
+              <app-sorter [query]="qry()" field="date">Date</app-sorter>
             </th>
             <th>Amount</th>
             <th>Person</th>
@@ -29,7 +27,7 @@
       <app-card-footer>
         Showing <strong>{{ payments.value()?.results?.length }}</strong> of
         <strong>{{ payments.value()?.total }}</strong> payments
-        
+
         <app-pager [total]="payments.value()?.total ?? 0" [query]="qry()" />
       </app-card-footer>
     </app-card>

@@ -8,6 +8,6 @@ export default [
   },
   {
     path: ':id',
-    component: ViewComponent
-  }
+    component: ViewComponent,
+  },
 ];
