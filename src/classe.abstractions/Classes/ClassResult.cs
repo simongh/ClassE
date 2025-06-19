@@ -6,13 +6,12 @@ namespace ClassE.Classes
     public record ClassResult : Types.IMapFrom<Entities.Class>
     {
         public DayOfWeek DayOfWeek { get; init; }
-        public DateTime StartDate { get; init; }
 
-        public DateTime EndDate { get; init; }
-
-        public int StartTime { get; init; }
+        public string StartTime { get; init; } = null!;
 
         public int Duration { get; init; }
+
+        public bool IsActive { get; init; }
 
         public VenueResult Venue { get; init; } = null!;
 

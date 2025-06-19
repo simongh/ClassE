@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SvgComponent } from '../svg.component';
+import { NavItemComponent } from './nav-item.component';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [SvgComponent, NavItemComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })

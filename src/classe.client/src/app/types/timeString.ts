@@ -1,0 +1,1 @@
+export type timeString = string;

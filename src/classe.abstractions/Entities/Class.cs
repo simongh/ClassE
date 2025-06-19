@@ -6,15 +6,11 @@
 
         public DayOfWeek DayOfWeek { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public bool IsActive { get; set; }
 
-        public DateTime EndDate { get; set; }
-
-        public byte StartTime { get; set; }
+        public string StartTime { get; set; } = null!;
 
         public byte Duration { get; set; }
-
-        public float Cost { get; set; }
 
         public byte[]? RowVersion { get; init; }
 

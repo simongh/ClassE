@@ -1,5 +1,5 @@
+import { dateString } from '@app-types/dateString';
 import { Booking } from './booking';
-import { Payment } from './payment';
 
 export interface Person {
   firstName: string;
@@ -9,5 +9,12 @@ export interface Person {
   credits: number;
   bookings: Booking[];
   waitingList: Booking[];
-  payments: Payment[];
+  payments: [
+    {
+      id: number;
+      created: dateString;
+      amount: number;
+      classes: number;
+    }
+  ];
 }

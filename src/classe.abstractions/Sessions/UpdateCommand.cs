@@ -26,8 +26,11 @@ namespace ClassE.Sessions
                 .FirstOrDefaultAsync(c => c.Id == request.Class, cancellationToken))
                 ?? throw new NotFoundException($"The class {request.Class} was not found");
 
-            if (request.Date < theClass.StartDate || request.Date > theClass.EndDate)
-                throw new ValidationException([new ValidationFailure(nameof(request.Date), "The date of the session must be the class date range")]);
+            var found = await _dataContext.Sessions
+                .Where(s => s.ClassId == request.Class && s.Date == request.Date)
+                .AnyAsync();
+            if (found)
+                throw new ValidationException([new ValidationFailure(nameof(request.Date), "A session for this class already exists for this date")]);
 
             Entities.Session session;
             if (request.Id == null)

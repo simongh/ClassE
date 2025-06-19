@@ -1,7 +1,7 @@
 <app-page-header>Venue Management</app-page-header>
 <div class="page-body">
   <div class="container-xl">
-    <div class="card">
+    <app-card>
       <table class="table card-table">
         <thead>
           <tr>
@@ -22,22 +22,11 @@
           }
         </tbody>
       </table>
-      <div class="card-footer">
-        <div class="row g-2justify-content-center justify-content-sm-between">
-          <div class="col-auto">
-            <p class="m-0 text-secondary">
-              Showing <strong>{{ venues.value()?.results?.length }}</strong> of
-              <strong>{{ venues.value()?.total }}</strong> classes
-            </p>
-          </div>
-          <div class="col-auto">
-            <app-pager
-              [total]="venues.value()?.total ?? 0"
-              [query]="qry()"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+      <app-card-footer>
+        Showing <strong>{{ venues.value()?.results?.length }}</strong> of
+        <strong>{{ venues.value()?.total }}</strong> classes
+        <app-pager [total]="venues.value()?.total ?? 0" [query]="qry()" />
+      </app-card-footer>
+    </app-card>
   </div>
 </div>

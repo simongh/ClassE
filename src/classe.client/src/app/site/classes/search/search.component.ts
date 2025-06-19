@@ -7,11 +7,12 @@ import { withDefaultFilters } from '@app-types/search-query';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from "@components/sorter/sorter.component";
+import { CardsModule } from '@components/cards';
 import { ClassesService } from '../classes.service';
 
 @Component({
   selector: 'app-search',
-  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent],
+  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent, CardsModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })

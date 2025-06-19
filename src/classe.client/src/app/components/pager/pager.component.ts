@@ -2,10 +2,11 @@ import { Component, computed, input } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SearchQuery } from '@app-types/search-query';
+import { SvgComponent } from "../svg.component";
 
 @Component({
   selector: 'app-pager',
-  imports: [NgClass,RouterLink],
+  imports: [NgClass, RouterLink, SvgComponent],
   templateUrl: './pager.component.html',
   styleUrl: './pager.component.css',
 })

@@ -28,7 +28,8 @@
             },
             "index": "src/index.html",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -36,6 +37,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@tabler\\core/dist/css/tabler.css",
               "src/styles.css"
             ],

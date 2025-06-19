@@ -18,4 +18,8 @@ export const routes: Routes = [
     path: 'classes',
     loadChildren: () => import('./site/classes/classes.routes'),
   },
+  {
+    path: 'payments',
+    loadChildren: () => import('./site/payments/payment.routes'),
+  },
 ];

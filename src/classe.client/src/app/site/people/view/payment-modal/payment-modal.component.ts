@@ -1,6 +1,7 @@
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
-import { PaymentsService } from './payments.service';
+import { Component, inject} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PaymentsService } from './payments.service';
 
 @Component({
   selector: 'app-payment-modal',
@@ -11,14 +12,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class PaymentModalComponent {
   readonly #svc = inject(PaymentsService);
 
-  readonly #elementRef = inject(ElementRef);
+  protected readonly modal = inject(NgbActiveModal);
 
-    protected get form() {
+  protected get form() {
     return this.#svc.form;
   }
 
   protected add() {
-    //this.#svc.add();
-    this.#elementRef.nativeElement.querySelector('#paymentModal').hide();
+    this.#svc.add();
+    this.modal.close();
   }
 }

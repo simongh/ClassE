@@ -18,11 +18,10 @@ export class ClassesService {
       total: 41,
       results: [{
         id: 0,
-        startDate: '2025-05-01',
-        endDate: '2025-06-01',
-        startTime: 18,
+        startTime: '18:00',
         duration: 60,
         dayOfWeek: 'Thursday',
+        isActive: true,
         booked: 5,
         waiting: 5,
         venue: {

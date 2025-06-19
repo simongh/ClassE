@@ -1,12 +1,13 @@
-import { dateString } from '@app-types/dateString';
+import { dayOfWeek } from '@app-types/dayOfWeek';
+import { timeString } from '@app-types/timeString';
 import { Venue } from './venue';
 import { Booking } from './booking';
 
 export interface Class {
-  stateDate: dateString;
-  endDate: dateString;
-  startTime: number;
+  dayOfWeek: dayOfWeek;
+  startTime: timeString;
   duration: number;
+  isActive: boolean;
   venue: Venue;
   bookings: Booking[];
   waitingList: Booking[];

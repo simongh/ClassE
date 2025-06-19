@@ -10,17 +10,14 @@ namespace ClassE.Classes
         public int? Id { get; init; }
 
         public DayOfWeek DayOfWeek { get; init; }
-        public DateTime StartDate { get; init; }
 
-        public DateTime EndDate { get; init; }
+        public bool IsActive { get; init; }
 
-        public int StartTime { get; init; }
+        public string StartTime { get; init; } = null!;
 
         public int Duration { get; init; }
 
         public int Venue { get; init; }
-
-        public float Cost { get; init; }
     }
 
     internal class UpdateCommandHandler(Data.IDataContext dataContext) : IRequestHandler<UpdateCommand, int>
@@ -49,10 +46,9 @@ namespace ClassE.Classes
                     ?? throw new NotFoundException();
             }
 
-            theClass.StartDate = request.StartDate;
-            theClass.EndDate = request.EndDate;
-            theClass.Cost = request.Cost;
-            theClass.StartTime = (byte)request.StartTime;
+            theClass.DayOfWeek = request.DayOfWeek;
+            theClass.IsActive = request.IsActive;
+            theClass.StartTime = request.StartTime;
             theClass.Duration = (byte)request.Duration;
             theClass.VenueId = request.Venue;
 

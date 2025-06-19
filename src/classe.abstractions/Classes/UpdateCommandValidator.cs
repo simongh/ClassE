@@ -6,23 +6,15 @@ namespace ClassE.Classes
     {
         public UpdateCommandValidator()
         {
-            RuleFor(m => m.StartDate)
-                .LessThan(m => m.EndDate);
-
-            RuleFor(m => m.EndDate)
-                .GreaterThan(m => m.StartDate);
+            RuleFor(m => m.DayOfWeek)
+                .IsInEnum();
 
             RuleFor(m => m.StartTime)
-                .InclusiveBetween(0, 23);
+                .Matches(@"^(?:[01]\d|2[0-3]):[0-5]\d")
+                .NotEmpty();
 
             RuleFor(m => m.Duration)
                 .InclusiveBetween(1, 120);
-
-            RuleFor(m => m.Cost)
-                .GreaterThanOrEqualTo(0);
-
-            RuleFor(m => m.DayOfWeek)
-                .IsInEnum();
         }
     }
 }

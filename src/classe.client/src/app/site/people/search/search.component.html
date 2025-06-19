@@ -1,12 +1,20 @@
 <app-page-header>People Management</app-page-header>
 <div class="page-body">
   <div class="container-xl">
-    <div class="card">
+    <app-card>
       <table class="table card-table">
         <thead>
           <tr>
-            <th><app-sorter [query]="qry()" field="firstName">First Name</app-sorter></th>
-            <th><app-sorter [query]="qry()" field="lastName">Last Name</app-sorter></th>
+            <th>
+              <app-sorter [query]="qry()" field="firstName"
+                >First Name</app-sorter
+              >
+            </th>
+            <th>
+              <app-sorter [query]="qry()" field="lastName"
+                >Last Name</app-sorter
+              >
+            </th>
             <th>Email</th>
             <th>Phone</th>
             <th class="w-1"></th>
@@ -24,22 +32,12 @@
           }
         </tbody>
       </table>
-      <div class="card-footer">
-        <div class="row g-2 justify-content-center justify-content-sm-between">
-          <div class="col-auto">
-            <p class="m-0 text-secondary">
-              Showing <strong>{{ people.value()?.results?.length }}</strong> of
-              <strong>{{ people.value()?.total }}</strong> classes
-            </p>
-          </div>
-          <div class="col-auto">
-            <app-pager
-              [total]="people.value()?.total ?? 0"
-              [query]="qry()"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+      <app-card-footer>
+        Showing <strong>{{ people.value()?.results?.length }}</strong> of
+        <strong>{{ people.value()?.total }}</strong> classes
+
+        <app-pager [total]="people.value()?.total ?? 0" [query]="qry()" />
+      </app-card-footer>
+    </app-card>
   </div>
 </div>

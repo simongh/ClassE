@@ -26,11 +26,11 @@ namespace ClassE.Person
         {
             profile.CreateMap<Entities.Person, PersonResult>()
                 .ForMember(p => p.Bookings, config => config.MapFrom(p => p.Bookings
-                    .Where(b => !b.WaitingList && b.Class.EndDate > DateTime.Today)
-                    .OrderBy(b => b.Class.DayOfWeek)))
+                    .Where(b => !b.WaitingList)
+                    .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
                 .ForMember(p => p.WaitingList, config => config.MapFrom(p => p.Bookings
-                    .Where(b => b.WaitingList && b.Class.EndDate > DateTime.Today)
-                    .OrderBy(b => b.Class.DayOfWeek)))
+                    .Where(b => b.WaitingList)
+                    .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
                 .ForMember(p => p.Payments, config => config.MapFrom(p => p.Payments
                     .OrderByDescending(p => p.Created)
                     .Take(5)))

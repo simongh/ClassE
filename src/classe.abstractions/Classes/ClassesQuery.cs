@@ -24,14 +24,14 @@ namespace ClassE.Classes
             var query = _dataContext.Classes.AsQueryable();
 
             if (!request.All)
-                query = query.Where(c => c.EndDate > DateTime.Today);
+                query = query.Where(c => c.IsActive);
 
             return new()
             {
                 Total = await query.CountAsync(cancellationToken),
                 Results = await query
-                    .OrderBy(s => s.StartDate)
-                    .ThenBy(s => s.DayOfWeek)
+                    .OrderBy(s => s.DayOfWeek)
+                    .ThenBy(s => s.StartTime)
                     .Skip(request.Offset)
                     .Take(request.Limit)
                     .ProjectTo<SummaryResult>(_mapper.ConfigurationProvider)

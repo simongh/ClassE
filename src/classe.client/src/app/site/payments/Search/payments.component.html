@@ -1,0 +1,37 @@
+<app-page-header>Payments</app-page-header>
+<div class="page-body">
+  <div class="container-xl">
+    <app-card>
+      <table class="table card-table">
+        <thead>
+          <tr>
+            <th>
+              <app-sorter [query]="qry()" field="date"
+                >Date</app-sorter
+              >
+            </th>
+            <th>Amount</th>
+            <th>Person</th>
+            <th class="w-1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of payments.value()?.results; track $index) {
+          <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.person.name }}</td>
+            <td><a [routerLink]="[0]">Edit</a></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      <app-card-footer>
+        Showing <strong>{{ payments.value()?.results?.length }}</strong> of
+        <strong>{{ payments.value()?.total }}</strong> payments
+        
+        <app-pager [total]="payments.value()?.total ?? 0" [query]="qry()" />
+      </app-card-footer>
+    </app-card>
+  </div>
+</div>
