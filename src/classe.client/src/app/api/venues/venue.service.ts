@@ -7,6 +7,7 @@ import { SearchResults } from '@app-types/search-results';
 
 import { Summary } from './summary';
 import { Venue } from './venue';
+import { VenuModel } from './venue.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,15 +37,19 @@ export class VenueService {
     return this.#httpClient.get<Venue>(`/api/venues/${id}`);
   }
 
-  public update(id: number, venue: Venue) {
+  public update(id: number, venue: VenueRequest) {
     return this.#httpClient.put(`/api/venues/${id}`, venue);
   }
 
-  public create(venue: Venue) {
+  public create(venue: VenueRequest) {
     return this.#httpClient.post<number>('/api/venues', venue);
   }
 
   public delete(id: number) {
     return this.#httpClient.delete(`/api/venues/${id}`);
   }
+}
+
+interface VenueRequest extends VenuModel {
+  address: string;
 }

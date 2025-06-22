@@ -51,9 +51,9 @@
             <tbody>
               @for (item of person.value()?.payments; track $index) {
               <tr>
-                <td>{{ item.created | date : "dd MMM yyyy" }}</td>
+                <td>{{ item.date | date : "dd MMM yyyy" }}</td>
                 <td>{{ item.amount | currency }}</td>
-                <td>{{ item.classes }}</td>
+                <td>{{ item.credits }}</td>
               </tr>
               } @empty {
               <tr>
@@ -82,9 +82,9 @@
             <tbody>
               @for (item of person.value()?.payments; track $index) {
               <tr>
-                <td>{{ item.created | date : "dd MMM yyyy" }}</td>
+                <td>{{ item.date | date : "dd MMM yyyy" }}</td>
                 <td>{{ item.amount | currency }}</td>
-                <td>{{ item.classes }}</td>
+                <td>{{ item.credits }}</td>
               </tr>
               } @empty {
               <tr>

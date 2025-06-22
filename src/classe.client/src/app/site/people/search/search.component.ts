@@ -8,9 +8,9 @@ import { PageHeaderComponent } from '@components/page-header/page-header.compone
 import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from '@components/sorter/sorter.component';
 
+import { PersonService } from '@api/people/person.service';
 import { withDefaultFilters } from '@app-types/search-query';
 
-import { PeopleService } from '../people.service';
 
 @Component({
   selector: 'app-people',
@@ -19,7 +19,7 @@ import { PeopleService } from '../people.service';
   styleUrl: './search.component.css',
 })
 export class SearchComponent {
-  readonly #peopleSvc = inject(PeopleService);
+  readonly #peopleSvc = inject(PersonService);
 
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 

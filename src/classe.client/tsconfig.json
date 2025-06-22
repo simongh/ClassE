@@ -29,6 +29,9 @@
       ],
       "@components/*": [
         "app/components/*"
+      ],
+      "@api/*": [
+        "app/api/*"
       ]
     }
   },

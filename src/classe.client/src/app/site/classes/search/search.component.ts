@@ -8,9 +8,9 @@ import { PageHeaderComponent } from '@components/page-header/page-header.compone
 import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from '@components/sorter/sorter.component';
 
+import { ClassesService } from '@api/classes/classes.service';
 import { withDefaultFilters } from '@app-types/search-query';
 
-import { ClassesService } from '../classes.service';
 
 @Component({
   selector: 'app-search',

@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">New Payment</h5>
+  <h5 class="modal-title">{{id() === 0 ? 'New' : 'Update'}} Payment {{ id()}}</h5>
   <button
     type="button"
     class="btn-close"
@@ -32,9 +32,9 @@
   <button class="btn btn-link link-secondary" (click)="modal.close()">
     Cancel
   </button>
-  <button class="btn btn-primary ms-auto" (click)="add()">
+  <button class="btn btn-primary ms-auto" (click)="save()">
     <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
-    <app-svg name="close"/>
-    Add new payment
+    <app-svg name="plus"/>
+    {{id()=== 0 ? 'Add new ' : 'Update ' }}payment
   </button>
 </div>

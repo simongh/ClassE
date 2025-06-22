@@ -9,6 +9,7 @@
               <app-sorter [query]="qry()" field="date">Date</app-sorter>
             </th>
             <th>Amount</th>
+            <th>Credits</th>
             <th>Person</th>
             <th class="w-1"></th>
           </tr>
@@ -17,9 +18,10 @@
           @for (item of payments.value()?.results; track $index) {
           <tr>
             <td>{{ item.date }}</td>
-            <td>{{ item.amount }}</td>
+            <td>{{ item.amount | currency }}</td>
+            <td>{{ item.credits }}</td>
             <td>{{ item.person.name }}</td>
-            <td><a [routerLink]="[0]">Edit</a></td>
+            <td><a routerLink="." (click)="open(item)">Edit</a></td>
           </tr>
           }
         </tbody>

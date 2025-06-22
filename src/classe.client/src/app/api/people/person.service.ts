@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { EMPTY, of } from 'rxjs';
 
-import { SearchQuery, toParams } from '@app-types/search-query';
+import { SearchQuery } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
 import { Person } from './person';
+import { PersonModel } from './person.model';
 import { Summary } from './summary';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PeopleService {
+export class PersonService {
   readonly #httpClient = inject(HttpClient);
 
   public search(query: SearchQuery) {
@@ -35,6 +36,7 @@ export class PeopleService {
 
   public get(id: number) {
     return of<Person>({
+      id: 0,
       firstName: 'Simon',
       lastName: 'Halsey',
       email: 'simon@thehalseys.uk',
@@ -45,10 +47,10 @@ export class PeopleService {
       payments: [
         {
           id: 0,
-          created: '2025-05-01',
-          amount: 10.00,
-          classes: 5
-        }
+          date: '2025-05-01',
+          amount: 10.0,
+          credits: 5,
+        },
       ],
     });
     // return this.#httpClient.get<Person>(`/api/people/${id}`);
@@ -58,12 +60,15 @@ export class PeopleService {
     return this.#httpClient.delete(`/api/people/${id}`);
   }
 
-  // eslint-disanpmble-next-line @typescript-eslint/no-unused-vars
-  public update(id: number, person: { firstName: string }) {
+  public update(id: number, person: PersonRequest) {
     return EMPTY;
+    // return this.#httpClient.put(`/api/people/${id}`,person);
   }
 
-  public create(person: { firstName: string }) {
+  public create(person: PersonRequest) {
     return this.#httpClient.post<number>('/api/people', person);
   }
+}
+
+interface PersonRequest extends PersonModel {
 }

@@ -56,7 +56,7 @@ module.exports = tseslint.config(
               position: "before",
             },
             {
-              pattern: "@app-types/**",
+              pattern: "@{app-types,api}/**",
               group: "internal",
               position: "before",
             },

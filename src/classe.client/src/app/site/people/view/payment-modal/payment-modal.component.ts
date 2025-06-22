@@ -2,11 +2,13 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { SvgComponent } from '@components/svg.component';
+
 import { PaymentsService } from './payments.service';
 
 @Component({
   selector: 'app-payment-modal',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SvgComponent],
   templateUrl: './payment-modal.component.html',
   styleUrl: './payment-modal.component.css',
 })

@@ -7,7 +7,8 @@ import { injectParams } from 'ngxtension/inject-params';
 import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 
-import { PeopleService } from '../people.service';
+import { PersonService } from '@api/people/person.service';
+
 import { PaymentModalComponent } from './payment-modal/payment-modal.component';
 
 @Component({
@@ -17,7 +18,7 @@ import { PaymentModalComponent } from './payment-modal/payment-modal.component';
   styleUrl: './view.component.css',
 })
 export class ViewComponent {
-  readonly #svc = inject(PeopleService);
+  readonly #svc = inject(PersonService);
 
   readonly #modalSvc = inject(NgbModal)
 

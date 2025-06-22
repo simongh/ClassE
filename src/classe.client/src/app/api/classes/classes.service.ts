@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { of } from 'rxjs';
 
-import { dateString } from '@app-types/dateString';
 import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
 import { Class } from './class';
+import { ClassModel } from './class.model';
 import { Summary } from './summary';
 
 
@@ -48,11 +48,11 @@ export class ClassesService {
     return this.#httpClient.get<Class>(`/api/classes/${id}`);
   }
 
-  public update(id: number, theClass: { startDate: dateString }) {
+  public update(id: number, theClass: ClassModel) {
     return this.#httpClient.put(`/api/classes/${id}`, theClass);
   }
 
-  public create(theClass: { startDate: dateString }) {
+  public create(theClass: ClassModel) {
     return this.#httpClient.post<number>('/api/classes', theClass);
   }
 
