@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">{{id() === 0 ? 'New' : 'Update'}} Payment {{ id()}}</h5>
+  <h5 class="modal-title">{{ id() === 0 ? "New" : "Update" }} Payment</h5>
   <button
     type="button"
     class="btn-close"
@@ -23,8 +23,11 @@
         <input type="number" class="form-control" formControlName="credits" />
       </div>
     </div>
-    <div class="row">
-      <div class="col">{{ form.value.date }}</div>
+    <div class="row mt-2">
+      <div class="col">
+        <label class="form-label">Person</label>
+        <app-person-list [control]="form.controls.person" />
+      </div>
     </div>
   </form>
 </div>
@@ -34,7 +37,7 @@
   </button>
   <button class="btn btn-primary ms-auto" (click)="save()">
     <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
-    <app-svg name="plus"/>
-    {{id()=== 0 ? 'Add new ' : 'Update ' }}payment
+    @if (id() === 0) {
+    <app-svg name="plus" /> Add new } @else { Update }payment
   </button>
 </div>

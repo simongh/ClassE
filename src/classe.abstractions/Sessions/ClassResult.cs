@@ -10,7 +10,7 @@ namespace ClassE.Sessions
 
         public int Duration { get; init; }
 
-        public IEnumerable<Models.BookingResult> Bookings { get; init; } = null!;
+        public IEnumerable<Models.IdNameResult> Bookings { get; init; } = null!;
 
         public void Mapping(Profile profile)
         {

@@ -15,9 +15,9 @@ namespace ClassE.Classes
 
         public VenueResult Venue { get; init; } = null!;
 
-        public IEnumerable<BookingResult> Bookings { get; init; } = null!;
+        public IEnumerable<IdNameResult> Bookings { get; init; } = null!;
 
-        public IEnumerable<BookingResult> WaitingList { get; init; } = null!;
+        public IEnumerable<IdNameResult> WaitingList { get; init; } = null!;
 
         public void Mapping(Profile profile)
         {

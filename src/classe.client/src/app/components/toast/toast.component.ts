@@ -7,7 +7,7 @@ import { ToastService } from './toast.service';
   selector: 'app-toast',
   imports: [NgbToastModule],
   template: `@for (toast of toastSvc.toasts; track toast) {<ngb-toast
-      [className]="toast.class"
+      [class]="toast.class"
       [autohide]="true"
       [delay]="5000"
       (hidden)="toastSvc.remove(toast)"

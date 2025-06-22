@@ -1,8 +1,14 @@
-<div class="page-header d-print-none">
+<div class="page-header">
   <div class="container-xl">
     <div class="row g-2 align-items-center">
       <div class="col">
         <h2 class="page-title"><ng-content /></h2>
+      </div>
+      <div class="col-auto ms-auto">
+        <ng-content select="div.btn-list" />
+         <!-- <div class="btn-list">
+         <button class="btn btn-primary">New</button>
+         </div> -->
       </div>
     </div>
   </div>

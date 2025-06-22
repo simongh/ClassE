@@ -1,4 +1,9 @@
-<app-page-header>Payments</app-page-header>
+<app-page-header>Payments
+  <div class="btn-list">
+    <button class="btn btn-primary" (click)="open(null)"><app-svg name="plus" /> New</button>
+  </div>
+</app-page-header>
+
 <div class="page-body">
   <div class="container-xl">
     <app-card>
@@ -17,7 +22,7 @@
         <tbody>
           @for (item of payments.value()?.results; track $index) {
           <tr>
-            <td>{{ item.date }}</td>
+            <td>{{ item.date | date : "dd MMM yyyy" }}</td>
             <td>{{ item.amount | currency }}</td>
             <td>{{ item.credits }}</td>
             <td>{{ item.person.name }}</td>

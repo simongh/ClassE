@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { PersonListComponent } from '@components/person-list/person-list.component';
 import { SvgComponent } from '@components/svg.component';
 import { ToastService } from '@components/toast/toast.service';
 
@@ -12,7 +13,7 @@ import { dateString } from '@app-types/dateString';
 
 @Component({
   selector: 'app-payment-modal',
-  imports: [ReactiveFormsModule, SvgComponent],
+  imports: [ReactiveFormsModule, SvgComponent, PersonListComponent],
   templateUrl: './payment-modal.component.html',
   styleUrl: './payment-modal.component.css',
 })

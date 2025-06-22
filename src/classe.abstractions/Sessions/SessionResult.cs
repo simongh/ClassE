@@ -6,6 +6,6 @@
 
         public ClassResult Class { get; init; } = null!;
 
-        public IEnumerable<Models.BookingResult> Attendees { get; init; } = null!;
+        public IEnumerable<Models.IdNameResult> Attendees { get; init; } = null!;
     }
 }

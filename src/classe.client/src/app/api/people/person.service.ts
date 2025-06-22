@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { EMPTY, of } from 'rxjs';
 
+import { IdName } from '@api/idname';
 import { SearchQuery } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
@@ -67,6 +68,16 @@ export class PersonService {
 
   public create(person: PersonRequest) {
     return this.#httpClient.post<number>('/api/people', person);
+  }
+
+  public list() {
+    return of<IdName[]>([
+      {
+        id: 1,
+        name: 'first name'
+      }
+    ])
+    //return this.#httpClient.get<IdName>('/api/people/list');
   }
 }
 

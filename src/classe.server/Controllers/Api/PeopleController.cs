@@ -15,6 +15,12 @@ namespace ClassE.Controllers.Api
             return Ok(await _mediator.Send(query));
         }
 
+        [HttpGet("list")]
+        public async Task<IActionResult> ListAsync()
+        {
+            return Ok(await _mediator.Send(new Person.ListQuery()));
+        }
+
         [HttpPost("")]
         public async Task<IActionResult> CreateAsync(Person.UpdateCommand command)
         {
