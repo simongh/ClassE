@@ -4,5 +4,4 @@ export interface PaymentModel
 {
     date: dateString;
     amount: number;
-    credits: number;
 }

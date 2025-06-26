@@ -7,7 +7,5 @@
         public DateTime Created { get; init; }
 
         public float Amount { get; init; }
-
-        public int Credits { get; init; }
     }
 }

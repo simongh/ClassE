@@ -14,7 +14,6 @@
               <app-sorter [query]="qry()" field="date">Date</app-sorter>
             </th>
             <th>Amount</th>
-            <th>Credits</th>
             <th>Person</th>
             <th class="w-1"></th>
           </tr>
@@ -24,7 +23,6 @@
           <tr>
             <td>{{ item.date | date : "dd MMM yyyy" }}</td>
             <td>{{ item.amount | currency }}</td>
-            <td>{{ item.credits }}</td>
             <td>{{ item.person.name }}</td>
             <td><a routerLink="." (click)="open(item)">Edit</a></td>
           </tr>

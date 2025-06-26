@@ -26,7 +26,6 @@ namespace ClassE.Payments
                     PersonId = request.Person
                 };
                 _dataContext.Payments.Add(payment);
-                person.Credits += request.Credits;
             }
             else
             {
@@ -34,12 +33,11 @@ namespace ClassE.Payments
                     .FirstOrDefaultAsync(p => p.Id == request.Id.Value))
                     ?? throw new NotFoundException();
 
-                person.Credits += request.Credits - payment.Credits;
+                person.Balance += request.Amount - payment.Amount;
             }
 
             payment.Created = request.Created;
             payment.Amount = request.Amount;
-            payment.Credits = request.Credits;
 
             await _dataContext.SaveChangesAsync(cancellationToken);
 

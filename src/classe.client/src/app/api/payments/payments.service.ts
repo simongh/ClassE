@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { EMPTY, of } from 'rxjs';
 
-import { dateString } from '@app-types/dateString';
 import { SearchQuery } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
@@ -23,7 +22,6 @@ export class PaymentsService {
           id: 99,
           date: '2025-06-01',
           amount: 10,
-          credits: 5,
           person: {
             id: 0,
             name: 'Simon Halsey',
@@ -42,7 +40,6 @@ export class PaymentsService {
       id: 99,
       date: '2025-06-01',
       amount: 0,
-      credits: 0,
       person: {
         id: 0,
         name: 'bob bobson',

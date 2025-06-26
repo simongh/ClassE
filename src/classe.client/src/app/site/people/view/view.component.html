@@ -11,8 +11,6 @@
               <div class="col form-control-plaintext">
                 {{ person.value()?.firstName }}
               </div>
-            </div>
-            <div class="row mb-3">
               <div class="col-3 col-form-label">Last Name</div>
               <div class="col form-control-plaintext">
                 {{ person.value()?.lastName }}
@@ -23,46 +21,22 @@
               <div class="col form-control-plaintext">
                 {{ person.value()?.email }}
               </div>
-            </div>
-            <div class="row mb-3">
               <div class="col-3 col-form-label">Phone</div>
               <div class="col form-control-plaintext">
                 {{ person.value()?.phone }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-3 col-form-label">Balance</div>
+              <div class="col form-control-plaintext">
+                {{ person.value()?.balance | currency}}
               </div>
             </div>
           </div>
         </app-card>
       </div>
       <div class="col-md-6">
-        <app-card>
-          <app-card-header>
-            <app-card-title title="Payments">
-              <button class="btn btn-0" (click)="open()">Add</button>
-            </app-card-title>
-          </app-card-header>
-          <table class="table card-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Credits</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (item of person.value()?.payments; track $index) {
-              <tr>
-                <td>{{ item.date | date : "dd MMM yyyy" }}</td>
-                <td>{{ item.amount | currency }}</td>
-                <td>{{ item.credits }}</td>
-              </tr>
-              } @empty {
-              <tr>
-                <td colspan="3" class="text-center">No payments made</td>
-              </tr>
-              }
-            </tbody>
-          </table>
-        </app-card>
+        <app-payments [payments]="person.value()?.payments" />
       </div>
       <div class="col-md-6">
         <app-card>
@@ -76,7 +50,6 @@
               <tr>
                 <th>Date</th>
                 <th>Amount</th>
-                <th>Credits</th>
               </tr>
             </thead>
             <tbody>
@@ -84,7 +57,6 @@
               <tr>
                 <td>{{ item.date | date : "dd MMM yyyy" }}</td>
                 <td>{{ item.amount | currency }}</td>
-                <td>{{ item.credits }}</td>
               </tr>
               } @empty {
               <tr>

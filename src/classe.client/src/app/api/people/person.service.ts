@@ -42,7 +42,7 @@ export class PersonService {
       lastName: 'Halsey',
       email: 'simon@thehalseys.uk',
       phone: null,
-      credits: 0,
+      balance: 0,
       bookings: [],
       waitingList: [],
       payments: [
@@ -50,7 +50,6 @@ export class PersonService {
           id: 0,
           date: '2025-05-01',
           amount: 10.0,
-          credits: 5,
         },
       ],
     });

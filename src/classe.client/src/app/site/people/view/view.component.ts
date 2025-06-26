@@ -10,10 +10,11 @@ import { PageHeaderComponent } from '@components/page-header/page-header.compone
 import { PersonService } from '@api/people/person.service';
 
 import { PaymentModalComponent } from './payment-modal/payment-modal.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 @Component({
   selector: 'app-view',
-  imports: [PageHeaderComponent, DatePipe, CurrencyPipe, CardsModule],
+  imports: [PageHeaderComponent, DatePipe, CurrencyPipe, CardsModule, PaymentsComponent],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css',
 })

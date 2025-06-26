@@ -10,7 +10,6 @@ export class PaymentsService {
   public readonly form = this.#fb.group({
     date: ['', Validators.required],
     amount: ['', Validators.required],
-    credits: ['', Validators.required],
   });
 
   public add() {

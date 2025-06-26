@@ -37,7 +37,7 @@ namespace ClassE.Attendees
 
             foreach (var item in toAction)
             {
-                item.Credits++;
+                //item.Credits++;
 
                 item.Sessions.Remove(session);
             }
@@ -48,7 +48,7 @@ namespace ClassE.Attendees
 
             foreach (var item in toAction)
             {
-                item.Credits--;
+                //item.Credits--;
                 item.Sessions.Add(session);
             }
 

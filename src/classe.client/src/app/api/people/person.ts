@@ -4,7 +4,7 @@ import { PaymentModel } from '../payments/payment.model';
 
 export interface Person extends PersonModel {
   id: number;
-  credits: number;
+  balance: number;
   bookings: Booking[];
   waitingList: Booking[];
   payments: [

@@ -19,7 +19,7 @@ namespace ClassE.Payments
                 .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken))
                 ?? throw new NotFoundException();
 
-            payment.Person.Credits -= payment.Credits;
+            payment.Person.Balance -= payment.Amount;
             _dataContext.Payments.Remove(payment);
 
             await _dataContext.SaveChangesAsync(cancellationToken);

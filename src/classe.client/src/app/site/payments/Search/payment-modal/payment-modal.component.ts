@@ -29,7 +29,6 @@ export class PaymentModalComponent {
   protected readonly form = this.#fb.group({
     date: [null as dateString | null, Validators.required],
     amount: [0, Validators.required],
-    credits: [0, Validators.required],
     person: [0],
   });
 
@@ -45,7 +44,6 @@ export class PaymentModalComponent {
     this.form.setValue({
       date: payment?.date,
       amount: payment?.amount,
-      credits: payment?.credits,
       person: payment?.person.id,
     });
   }
@@ -61,7 +59,6 @@ export class PaymentModalComponent {
     const payload = {
       date: this.form.value.date!,
       amount: this.form.value.amount!,
-      credits: this.form.value.credits!,
       person: this.form.value.person!,
     };
 
@@ -89,7 +86,6 @@ export class PaymentModalComponent {
     this.form.setValue({
       date: null,
       amount: 0,
-      credits: 0,
       person: 0,
     });
   }
