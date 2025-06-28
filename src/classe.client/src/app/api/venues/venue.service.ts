@@ -38,7 +38,7 @@ export class VenueService {
   }
 
   public update(id: number, venue: VenueRequest) {
-    return this.#httpClient.put(`/api/venues/${id}`, venue);
+    return this.#httpClient.put<number>(`/api/venues/${id}`, venue);
   }
 
   public create(venue: VenueRequest) {

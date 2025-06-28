@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h5 class="modal-title">New Payment</h5>
+  <button
+    type="button"
+    class="btn-close"
+    (click)="modal.close()"
+    aria-label="Close"
+  ></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-6">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email" />
+      </div>
+      <div class="col-6">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="tel" class="form-control" formControlName="phone" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="address" class="form-label">Email</label>
+        <textarea class="form-control" formControlName="address"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-link link-secondary" (click)="modal.close()">
+    Cancel
+  </button>
+  <button class="btn btn-primary ms-auto" (click)="save()">
+    <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+    <app-svg name="close" />
+    Add new payment
+  </button>
+</div>
