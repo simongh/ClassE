@@ -26,8 +26,6 @@ export class EditModalComponent {
 
   protected readonly modal = inject(NgbActiveModal);
 
-  protected readonly evenu = signal<Venue | null>(null);
-
   protected readonly saving = signal(false);
 
   protected readonly form = this.#fb.group({
@@ -37,30 +35,29 @@ export class EditModalComponent {
     address: [''],
   });
 
-  public readonly id = signal<number>(0);
+  protected readonly id = signal<number>(0);
 
-  protected readonly venue = rxResource({
-    request: () => this.id(),
-    loader: (p) => this.#svc.get(p.request),
-  });
-
-  constructor() {
-    effect(() => {
-      const venue = this.venue.value();
-      if (!venue) {
-        return;
-      }
-
-      this.form.setValue({
-        name: venue.name,
-        email: venue.name,
-        phone: venue.phone,
-        address: venue.address,
-      });
-    });
+  public load(id: number) {
+    if (id === 0) {
+      this.resetForm();
+    } else {
+      this.#svc
+        .get(id)
+        .pipe(takeUntilDestroyed(this.#destroyed))
+        .subscribe((v) => {
+          this.id.set(id);
+          
+          this.form.setValue({
+            name: v.name,
+            email: v.email,
+            phone: v.phone,
+            address: v.address,
+          });
+        });
+    }
   }
 
-  public save() {
+  protected save() {
     this.form.markAsTouched();
     if (this.form.invalid) {
       return;

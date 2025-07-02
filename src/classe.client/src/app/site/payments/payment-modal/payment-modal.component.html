@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ id() === 0 ? "New" : "Edit" }} Payment</h5>
+  <button
+    type="button"
+    class="btn-close"
+    (click)="modal.close()"
+    aria-label="Close"
+  ></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form" class="g-3">
+    <div class="row mb-3">
+      <div class="col-6">
+        <label for="date" class="form-label">Date</label>
+        <input
+          id="date"
+          type="date"
+          class="form-control"
+          formControlName="date"
+        />
+      </div>
+      <div class="col-6">
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          id="amount"
+          type="number"
+          class="form-control"
+          formControlName="amount"
+          placeholder="£0.00"
+          data-mask="0.00"
+          data-mask-visible="true"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <span class="form-label">Person</span>
+        <app-person-list [control]="form.controls.person" />
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-link link-secondary"
+    (click)="modal.close()"
+  >
+    Cancel
+  </button>
+  <button type="button" class="btn btn-primary ms-auto" (click)="save()">
+    <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+    @if (id() === 0) {
+    <app-svg name="plus" /> Add new } @else { Update }payment
+  </button>
+</div>

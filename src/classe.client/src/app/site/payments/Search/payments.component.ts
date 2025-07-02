@@ -15,7 +15,7 @@ import { Payment } from '@api/payments/payment';
 import { PaymentsService } from '@api/payments/payments.service';
 import { withDefaultFilters } from '@app-types/search-query';
 
-import { PaymentModalComponent } from './payment-modal/payment-modal.component';
+import { PaymentModalComponent } from '../payment-modal/payment-modal.component';
 
 @Component({
   selector: 'app-payments',
@@ -47,7 +47,7 @@ export class PaymentsComponent {
     });
 
     if (payment == null) {
-      modal.componentInstance.reset();
+      modal.componentInstance.resetForm();
     } else {
       modal.componentInstance.load(payment);
     }

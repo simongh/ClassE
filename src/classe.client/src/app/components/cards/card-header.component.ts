@@ -1,17 +1,19 @@
 import { Component, input } from '@angular/core';
 
-import { CardTitleComponent } from './card-title.component';
-
 @Component({
   selector: 'app-card-header',
   template: `<div class="card-header">
-    @if (!!title()) {
-    <app-card-title [title]="title()!" />
-    }
-    <ng-content />
+    <div class="row w-full">
+      <div class="col">
+        <h3 class="card-title">{{ title() }}</h3>
+      </div>
+      <div class="col-md-auto">
+        <ng-content select="div.btn-list" />
+      </div>
+    </div>
   </div>`,
   styles: ':host {display:contents}',
-  imports: [CardTitleComponent],
+  imports: [],
 })
 export class CardHeaderComponent {
   public readonly title = input<string | null>(null);

@@ -20,7 +20,7 @@ export class VenueService {
       total: 0,
       results: [
         {
-          id: 0,
+          id: 99,
           name: 'the hall',
           email: null,
           phone: null,
@@ -34,7 +34,14 @@ export class VenueService {
   }
 
   public get(id: number) {
-    return this.#httpClient.get<Venue>(`/api/venues/${id}`);
+    return of({
+      id: 99,
+      name: 'The Hall',
+      email: 'enquiries@thehall.int',
+      phone: null,
+      address: null
+    } as Venue);
+    // return this.#httpClient.get<Venue>(`/api/venues/${id}`);
   }
 
   public update(id: number, venue: VenueRequest) {
