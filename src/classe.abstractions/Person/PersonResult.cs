@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ClassE.Entities;
 using ClassE.Types;
 
 namespace ClassE.Person
@@ -13,7 +14,23 @@ namespace ClassE.Person
 
         public string? Phone { get; init; }
 
-        public int Credits { get; init; }
+        public float Balance { get; init; }
+
+        public string? Address { get; init; }
+
+        public DateTime DateOfBirth { get; init; }
+
+        public Gender Gender { get; init; }
+
+        public string? Occupation { get; set; }
+
+        public string? EmergencyContact { get; set; }
+
+        public string? EmergencyContactNumber { get; set; }
+
+        public string? Notes { get; set; }
+
+        public DateTime? ConsentDate { get; set; }
 
         public IEnumerable<BookingResult> Bookings { get; set; } = null!;
         public IEnumerable<BookingResult> WaitingList { get; set; } = null!;

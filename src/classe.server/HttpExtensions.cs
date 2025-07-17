@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using ClassE.Types;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace ClassE
@@ -10,8 +11,7 @@ namespace ClassE
             services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(opts =>
             {
                 opts.SerializerOptions.Converters.Clear();
-                opts.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
-                opts.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                opts.SerializerOptions.Converters.Add(new BetterEnumConvertorFactory());
                 opts.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 opts.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
