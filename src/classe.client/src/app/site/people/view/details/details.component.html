@@ -1,0 +1,46 @@
+<div class="row mb-3">
+  <div class="col-3 col-form-label">First Name</div>
+  <div class="col form-control-plaintext">{{ person()?.firstName }}</div>
+  <div class="col-3 col-form-label">Last Name</div>
+  <div class="col form-control-plaintext">{{ person()?.lastName }}</div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Email</div>
+  <div class="col form-control-plaintext">{{ person()?.email }}</div>
+  <div class="col-3 col-form-label">Phone</div>
+  <div class="col form-control-plaintext">{{ person()?.phone }}</div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Address</div>
+  <div class="col form-control-plaintext markdown"><address class="formatted">{{ person()?.address }}</address></div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Gender</div>
+  <div class="col form-control-plaintext">{{ person()?.gender }}</div>
+  <div class="col-3 col-form-label">Date of Birth</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.dateOfBirth | date : "dd MMM yyyy" }}
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Occupation</div>
+  <div class="col form-control-plaintext">{{ person()?.occupation }}</div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Emergency Contact</div>
+  <div class="col form-control-plaintext">{{ person()?.emergencyContact }}</div>
+  <div class="col-3 col-form-label">Emergency Contact Number</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.emergencyContactNumber }}
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Notes</div>
+  <div class="col form-control-plaintext formatted">{{ person()?.notes }}</div>
+</div>
+<div class="row mb-3">
+  <div class="col-3 col-form-label">Consent Signed</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.consentDate | date : "dd MMM yyyy" }}
+  </div>
+</div>

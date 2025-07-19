@@ -1,9 +1,9 @@
-import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
-import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { SvgComponent } from '@components/svg.component';
+import { PlusIcon } from '@components/svg';
 import { ToastService } from '@components/toast/toast.service';
 
 import { Venue } from '@api/venues/venue';
@@ -11,7 +11,7 @@ import { VenueService } from '@api/venues/venue.service';
 
 @Component({
   selector: 'app-edit-modal',
-  imports: [ReactiveFormsModule, SvgComponent],
+  imports: [ReactiveFormsModule, PlusIcon],
   templateUrl: './edit-modal.component.html',
   styleUrl: './edit-modal.component.css',
 })
@@ -46,7 +46,7 @@ export class EditModalComponent {
         .pipe(takeUntilDestroyed(this.#destroyed))
         .subscribe((v) => {
           this.id.set(id);
-          
+
           this.form.setValue({
             name: v.name,
             email: v.email,

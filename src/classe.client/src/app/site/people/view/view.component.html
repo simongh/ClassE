@@ -5,27 +5,13 @@
     <div class="row row-cards">
       <div class="col-md-12">
         <app-card>
+          <app-card-header>
+            <div class="btn-list">
+              <button type="button" class="btn">Edit</button>
+            </div>
+          </app-card-header>
           <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-3 col-form-label">First Name</div>
-              <div class="col form-control-plaintext">
-                {{ person.value()?.firstName }}
-              </div>
-              <div class="col-3 col-form-label">Last Name</div>
-              <div class="col form-control-plaintext">
-                {{ person.value()?.lastName }}
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-3 col-form-label">Email</div>
-              <div class="col form-control-plaintext">
-                {{ person.value()?.email }}
-              </div>
-              <div class="col-3 col-form-label">Phone</div>
-              <div class="col form-control-plaintext">
-                {{ person.value()?.phone }}
-              </div>
-            </div>
+            <app-details [person]="person.value()"/>
             <div class="row mb-3">
               <div class="col-3 col-form-label">Balance</div>
               <div class="col form-control-plaintext">

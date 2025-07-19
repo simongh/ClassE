@@ -2,13 +2,13 @@ import { NgClass } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { SearchQuery } from '@app-types/search-query';
+import { ChevronLeftIcon, ChevronRightIcon } from '@components/svg';
 
-import { SvgComponent } from '../svg.component';
+import { SearchQuery } from '@app-types/search-query';
 
 @Component({
   selector: 'app-pager',
-  imports: [NgClass, RouterLink, SvgComponent],
+  imports: [NgClass, RouterLink, ChevronLeftIcon, ChevronRightIcon],
   templateUrl: './pager.component.html',
   styleUrl: './pager.component.css',
 })

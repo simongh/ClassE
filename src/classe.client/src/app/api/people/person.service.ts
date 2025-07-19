@@ -41,7 +41,16 @@ export class PersonService {
       firstName: 'Simon',
       lastName: 'Halsey',
       email: 'simon@thehalseys.uk',
+      address: 'line 1\nline 2\npost code',
+      dateOfBirth: '1990-01-01',
+      gender: 'Male',
+      occupation: 'software engineer',
+      emergencyContact: 'Emma Halsey',
+      emergencyContactNumber: '0898 505050',
       phone: null,
+      notes: 'some notes',
+      consentDate: '2025-07-14',
+      joiningQuestions: null,
       balance: 0,
       bookings: [],
       waitingList: [],
@@ -80,5 +89,4 @@ export class PersonService {
   }
 }
 
-interface PersonRequest extends PersonModel {
-}
+type PersonRequest = PersonModel

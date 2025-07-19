@@ -8,7 +8,7 @@ import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from '@components/sorter/sorter.component';
-import { SvgComponent } from '@components/svg.component';
+import { PlusIcon } from '@components/svg';
 
 import { VenueService } from '@api/venues/venue.service';
 import { withDefaultFilters } from '@app-types/search-query';
@@ -17,7 +17,7 @@ import { EditModalComponent } from '../edit-modal/edit-modal.component';
 
 @Component({
   selector: 'app-search',
-  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent, CardsModule, SvgComponent],
+  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent, CardsModule, PlusIcon],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })

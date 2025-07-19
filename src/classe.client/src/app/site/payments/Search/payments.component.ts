@@ -9,7 +9,7 @@ import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from '@components/sorter/sorter.component';
-import { SvgComponent } from '@components/svg.component';
+import { PlusIcon } from '@components/svg';
 
 import { Payment } from '@api/payments/payment';
 import { PaymentsService } from '@api/payments/payments.service';
@@ -19,7 +19,16 @@ import { PaymentModalComponent } from '../payment-modal/payment-modal.component'
 
 @Component({
   selector: 'app-payments',
-  imports: [CardsModule, PageHeaderComponent, SorterComponent, PagerComponent, RouterLink, CurrencyPipe, DatePipe, SvgComponent],
+  imports: [
+    CardsModule,
+    PageHeaderComponent,
+    SorterComponent,
+    PagerComponent,
+    RouterLink,
+    CurrencyPipe,
+    DatePipe,
+    PlusIcon,
+  ],
   templateUrl: './payments.component.html',
   styleUrl: './payments.component.css',
 })

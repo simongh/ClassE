@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-nav-item',
   template: `<li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: exact() }">
     <a class="nav-link" [routerLink]="link()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: exact() }">
-      <span class="nav-link-icon"><ng-content select="app-svg" /></span>
+      <span class="nav-link-icon"><ng-content select="svg" /></span>
       <span class="nav-link-title"><ng-content /></span>
     </a>
   </li>`,

@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using ClassE.Entities;
 using ClassE.Types;
+using System.Text.Json;
 
 namespace ClassE.Person
 {
     public record PersonResult : IMapFrom<Entities.Person>
     {
+        private string? _joiningQuestions;
+
         public string FirstName { get; init; } = null!;
 
         public string LastName { get; init; } = null!;
@@ -32,6 +35,8 @@ namespace ClassE.Person
 
         public DateTime? ConsentDate { get; set; }
 
+        public JoiningQuestionsModel? JoiningQuestions => JsonSerializer.Deserialize<JoiningQuestionsModel>(_joiningQuestions ?? "{}");
+
         public IEnumerable<BookingResult> Bookings { get; set; } = null!;
         public IEnumerable<BookingResult> WaitingList { get; set; } = null!;
 
@@ -42,6 +47,7 @@ namespace ClassE.Person
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Entities.Person, PersonResult>()
+                .ForMember(_joiningQuestions, config => config.MapFrom(p => p.JoiningNotes))
                 .ForMember(p => p.Bookings, config => config.MapFrom(p => p.Bookings
                     .Where(b => !b.WaitingList)
                     .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))

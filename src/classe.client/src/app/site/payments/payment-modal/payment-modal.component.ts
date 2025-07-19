@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { PersonListComponent } from '@components/person-list/person-list.component';
-import { SvgComponent } from '@components/svg.component';
+import { PlusIcon } from '@components/svg';
 import { ToastService } from '@components/toast/toast.service';
 
 import { Payment } from '@api/payments/payment';
@@ -13,7 +13,7 @@ import { dateString } from '@app-types/dateString';
 
 @Component({
   selector: 'app-payment-modal',
-  imports: [ReactiveFormsModule, SvgComponent, PersonListComponent],
+  imports: [ReactiveFormsModule, PersonListComponent, PlusIcon],
   templateUrl: './payment-modal.component.html',
   styleUrl: './payment-modal.component.css',
 })
