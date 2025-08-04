@@ -2,7 +2,7 @@
 
 namespace ClassE.Classes
 {
-    public record SummaryResult : Types.IMapFrom<Entities.Class>
+    public record SummaryResult
     {
         public int Id { get; init; }
 
@@ -21,12 +21,15 @@ namespace ClassE.Classes
 
         public int Waiting { get; init; }
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Class, SummaryResult>()
-                .ForMember(p => p.Booked, config => config.MapFrom(p => p.Bookings.Where(b => !b.WaitingList).Count()))
-                .ForMember(p => p.Waiting, config => config.MapFrom(p => p.Bookings.Where(b => b.WaitingList).Count()))
-                ;
+            public Mapping()
+            {
+                CreateMap<Entities.Class, SummaryResult>()
+                    .ForMember(p => p.Booked, config => config.MapFrom(p => p.Bookings.Where(b => !b.WaitingList).Count()))
+                    .ForMember(p => p.Waiting, config => config.MapFrom(p => p.Bookings.Where(b => b.WaitingList).Count()))
+                    ;
+            }
         }
     }
 }

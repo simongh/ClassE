@@ -2,7 +2,7 @@
 
 namespace ClassE.Sessions
 {
-    public record ClassResult : Types.IMapFrom<Entities.Class>
+    public record ClassResult
     {
         public int Id { get; init; }
 
@@ -10,15 +10,18 @@ namespace ClassE.Sessions
 
         public int Duration { get; init; }
 
-        public IEnumerable<Models.IdNameResult> Bookings { get; init; } = null!;
+        public IEnumerable<Models.LookUpResult> Bookings { get; init; } = null!;
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Class, ClassResult>()
-                .ForMember(m => m.Bookings, config => config.MapFrom(m => m.Bookings
-                    .Where(b => !b.WaitingList)
-                    .OrderBy(b => b.Person.FirstName)
-                    .ThenBy(b => b.Person.LastName)));
+            public Mapping()
+            {
+                CreateMap<Entities.Class, ClassResult>()
+                    .ForMember(m => m.Bookings, config => config.MapFrom(m => m.Bookings
+                        .Where(b => !b.WaitingList)
+                        .OrderBy(b => b.Person.FirstName)
+                        .ThenBy(b => b.Person.LastName)));
+            }
         }
     }
 }

@@ -4,3 +4,7 @@ GET {{classe.ui.Server_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{classe.ui.Server_HostAddress}}/api/people
+
+###

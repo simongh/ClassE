@@ -2,16 +2,19 @@
 
 namespace ClassE.Sessions
 {
-    public record AttendeeResult : Types.IMapFrom<Entities.Person>
+    public record AttendeeResult
     {
         public int Id { get; init; }
 
         public string Name { get; init; } = null!;
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Person, AttendeeResult>()
-                .ForMember(m => m.Name, config => config.MapFrom(m => m.FirstName + " " + m.LastName));
+            public Mapping()
+            {
+                CreateMap<Entities.Person, AttendeeResult>()
+                    .ForMember(m => m.Name, config => config.MapFrom(m => m.FirstName + " " + m.LastName));
+            }
         }
     }
 }

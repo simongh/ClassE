@@ -1,11 +1,21 @@
-﻿namespace ClassE.Sessions
+﻿using AutoMapper;
+
+namespace ClassE.Sessions
 {
-    public record SessionResult : Types.IMapFrom<Entities.Session>
+    public record SessionResult
     {
         public DateOnly Date { get; init; }
 
         public ClassResult Class { get; init; } = null!;
 
-        public IEnumerable<Models.IdNameResult> Attendees { get; init; } = null!;
+        public IEnumerable<Models.LookUpResult> Attendees { get; init; } = null!;
+
+        private class Mapping : Profile
+        {
+            public Mapping()
+            {
+                CreateMap<Entities.Session, SessionResult>();
+            }
+        }
     }
 }

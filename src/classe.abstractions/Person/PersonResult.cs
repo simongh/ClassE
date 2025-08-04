@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using ClassE.Entities;
-using ClassE.Types;
 using System.Text.Json;
 
 namespace ClassE.Person
 {
-    public record PersonResult : IMapFrom<Entities.Person>
+    public record PersonResult
     {
         private string? _joiningQuestions;
 
@@ -23,7 +21,7 @@ namespace ClassE.Person
 
         public DateTime DateOfBirth { get; init; }
 
-        public Gender Gender { get; init; }
+        public Entities.Gender Gender { get; init; }
 
         public string? Occupation { get; set; }
 
@@ -44,22 +42,25 @@ namespace ClassE.Person
 
         public IEnumerable<SessionResult> Sessions { get; set; } = null!;
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Person, PersonResult>()
-                .ForMember(_joiningQuestions, config => config.MapFrom(p => p.JoiningNotes))
-                .ForMember(p => p.Bookings, config => config.MapFrom(p => p.Bookings
-                    .Where(b => !b.WaitingList)
-                    .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
-                .ForMember(p => p.WaitingList, config => config.MapFrom(p => p.Bookings
-                    .Where(b => b.WaitingList)
-                    .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
-                .ForMember(p => p.Payments, config => config.MapFrom(p => p.Payments
-                    .OrderByDescending(p => p.Created)
-                    .Take(5)))
-                .ForMember(p => p.Sessions, config => config.MapFrom(p => p.Sessions
-                    .OrderByDescending(s => s.Date)
-                    .Take(5)));
+            public Mapping()
+            {
+                CreateMap<Entities.Person, PersonResult>()
+                    .ForMember(p => p._joiningQuestions, config => config.MapFrom(p => p.JoiningNotes))
+                    .ForMember(p => p.Bookings, config => config.MapFrom(p => p.Bookings
+                        .Where(b => !b.WaitingList)
+                        .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
+                    .ForMember(p => p.WaitingList, config => config.MapFrom(p => p.Bookings
+                        .Where(b => b.WaitingList)
+                        .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
+                    .ForMember(p => p.Payments, config => config.MapFrom(p => p.Payments
+                        .OrderByDescending(p => p.Created)
+                        .Take(5)))
+                    .ForMember(p => p.Sessions, config => config.MapFrom(p => p.Sessions
+                        .OrderByDescending(s => s.Date)
+                        .Take(5)));
+            }
         }
     }
 }

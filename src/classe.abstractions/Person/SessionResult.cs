@@ -1,18 +1,20 @@
 ﻿using AutoMapper;
-using ClassE.Types;
 
 namespace ClassE.Person
 {
-    public record SessionResult : IMapFrom<Entities.Session>
+    public record SessionResult
     {
         public DateOnly Date { get; init; }
 
         public int StartTime { get; init; }
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Session, SessionResult>()
-                .ForMember(m => m.StartTime, config => config.MapFrom(m => m.Class.StartTime));
+            public Mapping()
+            {
+                CreateMap<Entities.Session, SessionResult>()
+                    .ForMember(m => m.StartTime, config => config.MapFrom(m => m.Class.StartTime));
+            }
         }
     }
 }

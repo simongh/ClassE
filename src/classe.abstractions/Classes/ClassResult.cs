@@ -3,7 +3,7 @@ using ClassE.Models;
 
 namespace ClassE.Classes
 {
-    public record ClassResult : Types.IMapFrom<Entities.Class>
+    public record ClassResult
     {
         public DayOfWeek DayOfWeek { get; init; }
 
@@ -15,15 +15,18 @@ namespace ClassE.Classes
 
         public VenueResult Venue { get; init; } = null!;
 
-        public IEnumerable<IdNameResult> Bookings { get; init; } = null!;
+        public IEnumerable<LookUpResult> Bookings { get; init; } = null!;
 
-        public IEnumerable<IdNameResult> WaitingList { get; init; } = null!;
+        public IEnumerable<LookUpResult> WaitingList { get; init; } = null!;
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Class, ClassResult>()
-                .ForMember(p => p.Bookings, config => config.MapFrom(c => c.Bookings.Where(b => !b.WaitingList)))
-                .ForMember(p => p.WaitingList, config => config.MapFrom(c => c.Bookings.Where(b => b.WaitingList)));
+            public Mapping()
+            {
+                CreateMap<Entities.Class, ClassResult>()
+                    .ForMember(p => p.Bookings, config => config.MapFrom(c => c.Bookings.Where(b => !b.WaitingList)))
+                    .ForMember(p => p.WaitingList, config => config.MapFrom(c => c.Bookings.Where(b => b.WaitingList)));
+            }
         }
     }
 }

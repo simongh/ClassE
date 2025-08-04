@@ -17,7 +17,7 @@ namespace ClassE
 
                     _ = provider switch
                     {
-                        _ => options.UseSqlite(cs)
+                        _ => options.UseSqlite(cs, sql => sql.MigrationsAssembly("classe.sqlite"))
                     };
                 })
                 .AddApplicationServices();
@@ -27,6 +27,8 @@ namespace ClassE
             builder.Services.AddAutoMapper(config => { });
 
             var app = builder.Build();
+
+            app.Services.Migrate();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

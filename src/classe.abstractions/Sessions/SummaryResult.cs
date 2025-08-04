@@ -2,7 +2,7 @@
 
 namespace ClassE.Sessions
 {
-    public record SessionModel : Types.IMapFrom<Entities.Session>
+    public record SessionModel
     {
         public int Id { get; init; }
 
@@ -10,10 +10,13 @@ namespace ClassE.Sessions
 
         public int Attending { get; init; }
 
-        public void Mapping(Profile profile)
+        private class Mapping : Profile
         {
-            profile.CreateMap<Entities.Session, SessionModel>()
-                .ForMember(m => m.Attending, config => config.MapFrom(m => m.Attendees.Count));
+            public Mapping()
+            {
+                CreateMap<Entities.Session, SessionModel>()
+                    .ForMember(m => m.Attending, config => config.MapFrom(m => m.Attendees.Count));
+            }
         }
     }
 }
