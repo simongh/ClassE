@@ -1,0 +1,109 @@
+<form [formGroup]="form">
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="firstName">First Name {{person()?.firstName}}</label>
+    <input
+      class="col form-control"
+      id="firstName"
+      type="text"
+      placeholder="First Name"
+      formControlName="firstName"
+    />
+    <label class="col-3 col-form-label" for="lastName">Last Name</label>
+    <input
+      class="col form-control"
+      id="lastName"
+      type="text"
+      formControlName="lastName"
+      placeholder="Last Name"
+    />
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="email">Email</label>
+    <input
+      class="col form-control"
+      id="email"
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+    />
+    <label class="col-3 col-form-label" for="phone">Phone</label>
+    <input
+      class="col form-control"
+      id="phone"
+      type="tel"
+      formControlName="phone"
+    />
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="address">Address</label>
+    <textarea
+      class="col form-control"
+      id="address"
+      formControlName="address"
+      placeholder="Address"
+      rows="4"
+    ></textarea>
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="gender">Gender</label>
+    <select class="col form-select" id="gender" formControlName="gender">
+      <option disabled></option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+    <label class="col-3 col-form-label" for="dateOfBirth">Date of Birth</label>
+    <input
+      class="col form-control"
+      id="dateOfBirth"
+      type="date"
+      formControlName="dateOfBirth"
+    />
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="occupation">Occupation</label>
+    <input
+      class="col form-control"
+      id="occupation"
+      type="text"
+      formControlName="occupation"
+    />
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="emergencyContact"
+      >Emergency Contact</label
+    >
+    <input
+      class="col form-control"
+      id="emergencyContact"
+      type="text"
+      formControlName="emergencyContact"
+    />
+    <label class="col-3 col-form-label" for="emergencyContactNumber"
+      >Emergency Contact Number</label
+    >
+    <input
+      class="col form-control"
+      id="emergencyContactNumber"
+      type="tel"
+      formControlName="emergencyContactNumber"
+    />
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="notes">Notes</label>
+    <textarea
+      class="col form-control"
+      id="notes"
+      formControlName="notes"
+      rows="4"
+    ></textarea>
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label" for="consentDate">Consent Signed</label>
+    <input
+      class="col form-control"
+      id="consentDate"
+      type="date"
+      formControlName="consentDate"
+    />
+  </div>
+</form>

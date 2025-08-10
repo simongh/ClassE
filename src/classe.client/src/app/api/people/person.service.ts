@@ -70,8 +70,8 @@ export class PersonService {
   }
 
   public update(id: number, person: PersonRequest) {
-    return EMPTY;
-    // return this.#httpClient.put(`/api/people/${id}`,person);
+    return of(null);
+    //return this.#httpClient.put(`/api/people/${id}`,person);
   }
 
   public create(person: PersonRequest) {

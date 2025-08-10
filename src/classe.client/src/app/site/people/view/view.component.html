@@ -7,17 +7,31 @@
         <app-card>
           <app-card-header>
             <div class="btn-list">
-              <button type="button" class="btn">Edit</button>
+              @if (!editing()){
+              <button type="button" class="btn" (click)="edit(true)">Edit</button>
+              }
             </div>
           </app-card-header>
           <div class="card-body">
-            <app-details [person]="person.value()"/>
+            @if (editing()) {
+              <app-edit [person]="person.value()" [id]="id()"/>
+              <div>
+                <button class="btn btn-link link-secondary" (click)="edit(false)">
+                  Cancel
+                </button>
+                <button class="btn btn-primary ms-auto" [disabled]="saving()" (click)="save()">
+                  Save
+                </button>
+              </div>
+            } @else {
+            <app-details [person]="person.value()" />
             <div class="row mb-3">
               <div class="col-3 col-form-label">Balance</div>
               <div class="col form-control-plaintext">
-                {{ person.value()?.balance | currency}}
+                {{ person.value()?.balance | currency }}
               </div>
             </div>
+            }
           </div>
         </app-card>
       </div>
