@@ -48,18 +48,10 @@ namespace ClassE.Person
             {
                 CreateMap<Entities.Person, PersonResult>()
                     .ForMember(p => p._joiningQuestions, config => config.MapFrom(p => p.JoiningNotes))
-                    .ForMember(p => p.Bookings, config => config.MapFrom(p => p.Bookings
-                        .Where(b => !b.WaitingList)
-                        .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
-                    .ForMember(p => p.WaitingList, config => config.MapFrom(p => p.Bookings
-                        .Where(b => b.WaitingList)
-                        .OrderBy(b => b.Class.DayOfWeek).ThenBy(b => b.Class.StartTime)))
-                    .ForMember(p => p.Payments, config => config.MapFrom(p => p.Payments
-                        .OrderByDescending(p => p.Created)
-                        .Take(5)))
-                    .ForMember(p => p.Sessions, config => config.MapFrom(p => p.Sessions
-                        .OrderByDescending(s => s.Date)
-                        .Take(5)));
+                    .ForMember(p => p.Bookings, config => config.Ignore())
+                    .ForMember(p => p.WaitingList, config => config.Ignore())
+                    .ForMember(p => p.Payments, config => config.Ignore())
+                    .ForMember(p => p.Sessions, config => config.Ignore());
             }
         }
     }

@@ -1,14 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { EMPTY, of } from 'rxjs';
 
 import { IdName } from '@api/idname';
-import { SearchQuery } from '@app-types/search-query';
+import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
 import { Person } from './person';
 import { PersonModel } from './person.model';
 import { Summary } from './summary';
+
+export type PersonForm = ReturnType<PersonService['form']>['value'];
 
 @Injectable({
   providedIn: 'root',
@@ -16,65 +19,32 @@ import { Summary } from './summary';
 export class PersonService {
   readonly #httpClient = inject(HttpClient);
 
+  readonly #fb = inject(NonNullableFormBuilder);
+
   public search(query: SearchQuery) {
-    return of<SearchResults<Summary>>({
-      total: 0,
-      results: [
-        {
-          id: 0,
-          firstName: 'bob',
-          lastName: 'bobson',
-          email: 'bob@bobson.int',
-          phone: null,
-        },
-      ],
+    const p = toParams(query);
+    return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
+      params: p,
     });
-    // const p = toParams(query);
-    // return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
-    //   params: p,
-    // });
   }
 
   public get(id: number) {
-    return of<Person>({
-      id: 0,
-      firstName: 'Simon',
-      lastName: 'Halsey',
-      email: 'simon@thehalseys.uk',
-      address: 'line 1\nline 2\npost code',
-      dateOfBirth: '1990-01-01',
-      gender: 'Male',
-      occupation: 'software engineer',
-      emergencyContact: 'Emma Halsey',
-      emergencyContactNumber: '0898 505050',
-      phone: null,
-      notes: 'some notes',
-      consentDate: '2025-07-14',
-      joiningQuestions: null,
-      balance: 0,
-      bookings: [],
-      waitingList: [],
-      payments: [
-        {
-          id: 0,
-          date: '2025-05-01',
-          amount: 10.0,
-        },
-      ],
-    });
-    // return this.#httpClient.get<Person>(`/api/people/${id}`);
+    if (id === 0) {
+      return of<Person | null>(null);
+    } else {
+      return this.#httpClient.get<Person>(`/api/people/${id}`);
+    }
   }
 
   public delete(id: number) {
     return this.#httpClient.delete(`/api/people/${id}`);
   }
 
-  public update(id: number, person: PersonRequest) {
-    return of(null);
-    //return this.#httpClient.put(`/api/people/${id}`,person);
+  public update(id: number, person: PersonForm) {
+    return this.#httpClient.put(`/api/people/${id}`,person);
   }
 
-  public create(person: PersonRequest) {
+  public create(person: PersonForm) {
     return this.#httpClient.post<number>('/api/people', person);
   }
 
@@ -82,11 +52,46 @@ export class PersonService {
     return of<IdName[]>([
       {
         id: 1,
-        name: 'first name'
-      }
-    ])
+        name: 'first name',
+      },
+    ]);
     //return this.#httpClient.get<IdName>('/api/people/list');
   }
-}
 
-type PersonRequest = PersonModel
+  public form(person?: PersonModel | null) {
+    return this.#fb.group({
+      firstName: [person?.firstName ?? null, Validators.required],
+      lastName: [person?.lastName ?? null, Validators.required],
+      email: [person?.email ?? null, [Validators.email]],
+      phone: [person?.phone ?? null],
+      address: [person?.address ?? null],
+      gender: [person?.gender ?? null],
+      dateOfBirth: [person?.dateOfBirth ?? null],
+      occupation: [person?.occupation ?? null],
+      emergencyContact: [person?.emergencyContact ?? null],
+      emergencyContactNumber: [person?.emergencyContactNumber ?? null],
+      notes: [person?.notes ?? null],
+      consentDate: [person?.consentDate ?? null],
+      joiningQuestions: this.#fb.group({
+        regularExercise: [person?.joiningQuestions.regularExercise ?? false],
+        otherExercise: [person?.joiningQuestions.otherExercise ?? null],
+        goals: [person?.joiningQuestions.goals ?? null],
+        existingMedicalConditions: [person?.joiningQuestions.existingMedicalConditions ?? null],
+        jointInjuries: [person?.joiningQuestions.jointInjuries ?? false],
+        additionalNeeds: [person?.joiningQuestions.additionalNeeds ?? null],
+        doctorRecommendations: [person?.joiningQuestions.doctorRecommendations ?? null],
+        painOnPhysicalActivity: [person?.joiningQuestions.painOnPhysicalActivity ?? false],
+        chestPain: [person?.joiningQuestions.chestPain ?? false],
+        dizziness: [person?.joiningQuestions.dizziness ?? false],
+        doctorPrescribedDrugs: [person?.joiningQuestions.doctorPrescribedDrugs ?? false],
+        boneOrJointProblems: [person?.joiningQuestions.boneOrJointProblems ?? false],
+        epilepsy: [person?.joiningQuestions.epilepsy ?? false],
+        diabetes: [person?.joiningQuestions.diabetes ?? false],
+        asthma: [person?.joiningQuestions.asthma ?? false],
+        anyReasonNotToDoPhysicalActivity: [person?.joiningQuestions.anyReasonNotToDoPhysicalActivity ?? false],
+        discussedAboveWithDoctor: [person?.joiningQuestions.discussedAboveWithDoctor ?? false],
+        additionalInfo: [person?.joiningQuestions.additionalInfo ?? null],
+      }),
+    });
+  }
+}

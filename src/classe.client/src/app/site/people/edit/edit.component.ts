@@ -1,7 +1,10 @@
-import { Component, effect, inject, input } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, computed, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormBuilder, FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Person } from '@api/people/person';
+import { PersonService } from '@api/people/person.service';
 
 @Component({
   selector: 'app-edit',
@@ -10,30 +13,50 @@ import { Person } from '@api/people/person';
   styleUrl: './edit.component.css',
 })
 export class EditComponent {
-  readonly #fb = inject(FormBuilder);
+  readonly #destroyed = inject(DestroyRef);
 
-  public readonly person = input<Person>();
+  readonly #router = inject(Router);
+
+  readonly #svc = inject(PersonService);
+
+  public readonly person = input<Person | null>();
 
   public readonly id = input<number | null>();
 
-  protected readonly form = this.#fb.group({
-    firstName: [this.person()?.firstName, Validators.required],
-    lastName: [this.person()?.lastName, Validators.required],
-    email: [this.person()?.email, [Validators.email]],
-    phone: [this.person()?.phone],
-    address: [this.person()?.address],
-    gender: [this.person()?.gender],
-    dateOfBirth: [this.person()?.dateOfBirth],
-    occupation: [this.person()?.occupation],
-    emergencyContact: [this.person()?.emergencyContact],
-    emergencyContactNumber: [this.person()?.emergencyContactNumber],
-    notes: [this.person()?.notes],
-    consentDate: [this.person()?.consentDate],
-  });
+  public readonly adding = input<boolean>(false);
 
-  constructor() {
-    effect(() => {
-      this.form.patchValue(this.person()!);
-    });
+  public readonly saved = output();
+
+  protected readonly saving = signal(false);
+
+  protected readonly form = computed(()=> this.#svc.form(this.person()));
+
+  protected cancel() {
+    if (this.adding()) {
+      this.#router.navigateByUrl('/people');
+    } else {
+      this.saved.emit();
+    }
+  }
+
+  protected save() {
+    this.saving.set(true);
+
+    if (this.adding()) {
+      this.#svc
+        .create({ ...this.form().value })
+        .pipe(takeUntilDestroyed(this.#destroyed))
+        .subscribe((id) => {
+          this.#router.navigateByUrl(`/people/${id}`);
+        });
+    } else {
+      this.#svc
+        .update(this.id()!, this.form().value)
+        .pipe(takeUntilDestroyed(this.#destroyed))
+        .subscribe(() => {
+          this.saving.set(false);
+          this.saved.emit();
+        });
+    }
   }
 }

@@ -4,9 +4,9 @@ namespace ClassE.Person
 {
     public record SessionResult
     {
-        public DateOnly Date { get; init; }
+        public DateTime Date { get; init; }
 
-        public int StartTime { get; init; }
+        public string StartTime { get; init; } = null!;
 
         private class Mapping : Profile
         {

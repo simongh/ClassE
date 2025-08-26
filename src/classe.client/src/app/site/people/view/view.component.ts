@@ -1,8 +1,10 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, DestroyRef, inject, numberAttribute, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, numberAttribute, signal } from '@angular/core';
 import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { injectParams } from 'ngxtension/inject-params';
+import { Observable } from 'rxjs';
 
 import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
@@ -33,40 +35,30 @@ export class ViewComponent {
 
   readonly #modalSvc = inject(NgbModal);
 
-  readonly #destroyed = inject(DestroyRef);
-
   protected readonly id = injectParams('id', { parse: numberAttribute });
+
+  protected readonly adding = computed(() => this.id() === 0);
+
+  protected readonly editing = signal<boolean>(this.adding());
 
   protected readonly person = rxResource({
     request: () => this.id()!,
     loader: (params) => this.#svc.get(params.request),
   });
 
-  protected readonly editing = signal<boolean>(false);
-
-  protected readonly saving = signal(false);
 
   public open() {
     this.#modalSvc.open(PaymentModalComponent);
   }
 
-  protected edit(active: boolean) {
-    this.editing.set(active);
+  public saved()
+  {
+    this.editing.set(false);
+    this.person.reload();
   }
 
-  protected save() {
-    this.saving.set(true);
-
-    this.#svc
-      .update(this.id()!, {
-        ...this.person.value()!,
-        notes: 'xxxx',
-      })
-      .pipe(takeUntilDestroyed(this.#destroyed))
-      .subscribe(() => {
-        this.editing.set(false);
-        this.saving.set(false);
-        this.person.reload();
-      });
+  public edit()
+  {
+    this.editing.set(true);
   }
 }

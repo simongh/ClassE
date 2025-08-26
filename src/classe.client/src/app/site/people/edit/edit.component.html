@@ -1,6 +1,8 @@
-<form [formGroup]="form">
+<form [formGroup]="form()">
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="firstName">First Name {{person()?.firstName}}</label>
+    <label class="col-3 col-form-label" for="firstName"
+      >First Name {{ person()?.firstName }}</label
+    >
     <input
       class="col form-control"
       id="firstName"
@@ -105,5 +107,17 @@
       type="date"
       formControlName="consentDate"
     />
+  </div>
+  <div>
+    <button type="button" class="btn btn-link link-secondary" (click)="cancel()">
+      Cancel
+    </button>
+    <button type="button"
+      class="btn btn-primary ms-auto"
+      [disabled]="saving()"
+      (click)="save()"
+    >
+      Save
+    </button>
   </div>
 </form>

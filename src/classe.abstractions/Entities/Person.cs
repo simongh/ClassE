@@ -1,4 +1,6 @@
-﻿namespace ClassE.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace ClassE.Entities
 {
     public class Person
     {
@@ -40,6 +42,7 @@
         public ICollection<Payment> Payments { get; set; } = [];
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter<Gender>))]
     public enum Gender
     {
         Unknown,

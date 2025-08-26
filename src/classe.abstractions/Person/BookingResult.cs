@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ClassE.Types;
 
 namespace ClassE.Person
 {
@@ -7,7 +6,7 @@ namespace ClassE.Person
     {
         public DayOfWeek Day { get; init; }
 
-        public int StartTime { get; init; }
+        public string StartTime { get; init; } = null!;
 
         private class Mapping : Profile
         {

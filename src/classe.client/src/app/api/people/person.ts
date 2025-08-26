@@ -6,7 +6,6 @@ import { PersonModel } from './person.model';
 import { PaymentModel } from '../payments/payment.model';
 
 export interface Person extends PersonModel {
-  id: number;
   balance: number;
   bookings: Booking[];
   waitingList: Booking[];

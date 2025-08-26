@@ -8,23 +8,17 @@
           <app-card-header>
             <div class="btn-list">
               @if (!editing()){
-              <button type="button" class="btn" (click)="edit(true)">Edit</button>
+              <button type="button" class="btn" (click)="edit()">
+                Edit
+              </button>
               }
             </div>
           </app-card-header>
           <div class="card-body">
             @if (editing()) {
-              <app-edit [person]="person.value()" [id]="id()"/>
-              <div>
-                <button class="btn btn-link link-secondary" (click)="edit(false)">
-                  Cancel
-                </button>
-                <button class="btn btn-primary ms-auto" [disabled]="saving()" (click)="save()">
-                  Save
-                </button>
-              </div>
+            <app-edit [person]="person.value()!" [id]="id()" [adding]="adding()" (saved)="saved()" />
             } @else {
-            <app-details [person]="person.value()" />
+            <app-details [person]="person.value()!" />
             <div class="row mb-3">
               <div class="col-3 col-form-label">Balance</div>
               <div class="col form-control-plaintext">
@@ -35,6 +29,7 @@
           </div>
         </app-card>
       </div>
+      @if (!adding()) {
       <div class="col-md-6">
         <app-payments [payments]="person.value()?.payments" />
       </div>
@@ -67,6 +62,7 @@
           </table>
         </app-card>
       </div>
+      }
     </div>
   </div>
 </div>

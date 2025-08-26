@@ -25,7 +25,7 @@ namespace ClassE.Controllers.Api
         public async Task<IActionResult> CreateAsync(Person.UpdateCommand command)
         {
             var result = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetAsync), result, result);
+            return StatusCode(StatusCodes.Status100Continue, result);
         }
 
         [HttpGet("{id:int}")]
