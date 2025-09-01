@@ -1,4 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ClassE
 {
@@ -20,15 +25,59 @@ namespace ClassE
                         _ => options.UseSqlite(cs, sql => sql.MigrationsAssembly("classe.sqlite"))
                     };
                 })
-                .AddApplicationServices();
+                .AddApplicationServices()
+                .AddWebServices();
+
+            builder.Services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/login";
+                    options.LogoutPath = "/logout";
+
+                    options.Events.OnRedirectToAccessDenied =
+                        options.Events.OnRedirectToLogin = c =>
+                        {
+                            c.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            return Task.CompletedTask;
+                        };
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["class£:siteUrl"],
+                        ValidAudience = builder.Configuration["classE:siteUrl"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["classE:secret"]!))
+                    };
+                });
 
             builder.Services.AddControllers();
             builder.Services.ConfigureJson();
             builder.Services.AddAutoMapper(config => { });
 
+            builder.Services.AddAuthorizationBuilder()
+                .SetDefaultPolicy(new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build())
+                .AddPolicy("token", policy => policy
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build())
+                .AddPolicy("cookies", policy => policy
+                    .AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser());
+
             var app = builder.Build();
 
             app.Services.Migrate();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -37,7 +86,7 @@ namespace ClassE
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
-            app.MapControllers();
+            app.MapControllers().RequireAuthorization();
             app.MapFallbackToFile("/index.html");
 
             app.Run();

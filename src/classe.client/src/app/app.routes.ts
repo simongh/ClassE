@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 
+import { authGuard } from '@app-types/auth.guard';
+
+import { LoginComponent } from './login/login.component';
 import { SiteComponent } from './site/site.component';
 import { WeatherComponent } from './site/weather/weather.component';
 
@@ -7,6 +10,8 @@ export const routes: Routes = [
   {
     path: '',
     component: SiteComponent,
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
@@ -29,6 +34,10 @@ export const routes: Routes = [
         loadChildren: () => import('./site/payments/payment.routes'),
       },
     ],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: '**',

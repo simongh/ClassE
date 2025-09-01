@@ -38,6 +38,8 @@ namespace ClassE
             services.AddTransient<IValidator<Venue.VenueQuery>, Venue.VenueQueryValidator>();
             services.AddTransient<IValidator<Venue.UpdateVenueCommand>, Venue.UpdateCommandValidator>();
 
+            services.AddTransient<Services.IUsersService, Services.UsersService>();
+
             return services;
         }
 

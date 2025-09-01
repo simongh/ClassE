@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClassE.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "token")]
     public class PeopleController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
