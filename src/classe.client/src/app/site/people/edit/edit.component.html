@@ -1,8 +1,6 @@
 <form [formGroup]="form()">
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="firstName"
-      >First Name {{ person()?.firstName }}</label
-    >
+    <label class="col-3 col-form-label" for="firstName">First Name</label>
     <input
       class="col form-control"
       id="firstName"
@@ -108,11 +106,214 @@
       formControlName="consentDate"
     />
   </div>
+  <div class="hr-text">Joining Questions</div>
+  <div formGroupName="joiningQuestions">
+    <div class="row mb-3">
+      <div class="col-3 col-form-label"></div>
+      <label class="form-check col mt-2" for="regularExercise">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="regularExercise"
+          formControlName="regularExercise"
+          value="true"
+        />
+        <span class="form-check-label">Regular Exercise</span>
+      </label>
+    </div>
+    <div class="row mb-3">
+      <label class="col-3 col-form-label" for="otherExercise"
+        >Any Other Exercise</label
+      >
+      <input
+        class="col form-control"
+        id="otherExercise"
+        type="text"
+        formControlName="otherExercise"
+      />
+    </div>
+    <div class="row mb-3">
+      <label class="col-3 col-form-label" for="goals">Goals</label>
+      <input
+        class="col form-control"
+        id="goals"
+        type="text"
+        formControlName="goals"
+      />
+    </div>
+    <div class="row mb-3">
+      <label class="col-3 col-form-label" for="existingMedicalConditions"
+        >Existing Medical Conditions</label
+      >
+      <input
+        class="col form-control"
+        id="existingMedicalConditions"
+        type="text"
+        formControlName="existingMedicalConditions"
+      />
+    </div>
+    <div class="row mb-3">
+      <div class="col-3 col-form-label"></div>
+      <label class="form-check col mt-2" for="jointInjuries">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="jointInjuries"
+          formControlName="jointInjuries"
+          value="true"
+        />
+        <span class="form-check-label">Any Joint Injury</span>
+      </label>
+    </div>
+    <div class="row mb-3">
+      <label class="col-3 col-form-label" for="additionalNeeds"
+        >Additional Needs</label
+      >
+      <input
+        class="col form-control"
+        id="additionalNeeds"
+        type="text"
+        formControlName="additionalNeeds"
+      />
+    </div>
+    <div class="row mb-3">
+      <label class="col-3 col-form-label" for="doctorRecommendations"
+        >Doctors Recommedations</label
+      >
+      <input
+        class="col form-control"
+        id="doctorRecommendations"
+        type="text"
+        formControlName="doctorRecommendations"
+      />
+    </div>
+    <div class="row mb-3">
+      <div class="col-3 col-form-label"></div>
+      <div class="col">
+        <label class="form-check col mt-2" for="painOnPhysicalActivity">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="painOnPhysicalActivity"
+            formControlName="painOnPhysicalActivity"
+            value="true"
+          />
+          <span class="form-check-label">Any pain on physical activity</span>
+        </label>
+        <label class="form-check col mt-2" for="chestPain">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="chestPain"
+            formControlName="chestPain"
+            value="true"
+          />
+          <span class="form-check-label">Any chest pain</span>
+        </label>
+        <label class="form-check col mt-2" for="dizziness">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="dizziness"
+            formControlName="dizziness"
+            value="true"
+          />
+          <span class="form-check-label">Any dizziness</span>
+        </label>
+        <label class="form-check col mt-2" for="doctorPrescribedDrugs">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="doctorPrescribedDrugs"
+            formControlName="doctorPrescribedDrugs"
+            value="true"
+          />
+          <span class="form-check-label">Any doctor prescribed medications</span>
+        </label>
+        <label class="form-check col mt-2" for="boneOrJointProblems">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="boneOrJointProblems"
+            formControlName="boneOrJointProblems"
+            value="true"
+          />
+          <span class="form-check-label">Any bone or joint problems</span>
+        </label>
+        <label class="form-check col mt-2" for="epilepsy">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="epilepsy"
+            formControlName="epilepsy"
+            value="true"
+          />
+          <span class="form-check-label">Any history of epilepsy</span>
+        </label>
+        <label class="form-check col mt-2" for="diabetes">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="diabetes"
+            formControlName="diabetes"
+            value="true"
+          />
+          <span class="form-check-label">Any history of diabetes</span>
+        </label>
+        <label class="form-check col mt-2" for="asthma">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="asthma"
+            formControlName="asthma"
+            value="true"
+          />
+          <span class="form-check-label">Any history of asthma</span>
+        </label>
+        <label class="form-check col mt-2" for="anyReasonNotToDoPhysicalActivity">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="anyReasonNotToDoPhysicalActivity"
+            formControlName="anyReasonNotToDoPhysicalActivity"
+            value="true"
+          />
+          <span class="form-check-label">Any other reason not to undertake physical activity</span>
+        </label>
+        <label class="form-check col mt-2" for="discussedAboveWithDoctor">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="discussedAboveWithDoctor"
+            formControlName="discussedAboveWithDoctor"
+            value="true"
+          />
+          <span class="form-check-label">Have any of the above been discussed with doctor</span>
+        </label>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-3 col-form-label" for="additionalInfo"
+        >Additional Info</label
+      >
+      <textarea
+        class="col form-control"
+        id="additionalInfo"
+        formControlName="additionalInfo"
+        rows="4"
+      ></textarea>
+    </div>
+  </div>
   <div>
-    <button type="button" class="btn btn-link link-secondary" (click)="cancel()">
+    <button
+      type="button"
+      class="btn btn-link link-secondary"
+      (click)="cancel()"
+    >
       Cancel
     </button>
-    <button type="button"
+    <button
+      type="button"
       class="btn btn-primary ms-auto"
       [disabled]="saving()"
       (click)="save()"

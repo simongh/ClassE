@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { catchError, of, tap } from 'rxjs';
+
+import { BYPASS_TOKEN } from './auth.interceptor';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,16 @@ export class AuthService {
 
   public readonly isUserLoggedIn = computed(() => !!this.token());
 
+  public needsExtending() {
+    const value = this.#user().expires;
+
+    if (!value) {
+      return true;
+    }
+
+    return new Date(value).valueOf() - Date.now() < 60000;
+  }
+
   public load(user: UserModel) {
     this.#user.set(user);
   }
@@ -27,10 +39,14 @@ export class AuthService {
   }
 
   public extend() {
-    return this.#client.get<UserModel>('/api/auth/token').pipe(
-      catchError((e) => of(null)),
-      tap((u) => this.#user.set(u ?? ({} as UserModel)))
-    );
+    return this.#client
+      .get<UserModel>('/api/auth/token', {
+        context: new HttpContext().set(BYPASS_TOKEN, true),
+      })
+      .pipe(
+        catchError((e) => of(null)),
+        tap((u) => this.#user.set(u ?? ({} as UserModel)))
+      );
   }
 }
 

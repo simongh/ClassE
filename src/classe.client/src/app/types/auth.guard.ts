@@ -8,7 +8,7 @@ export const authGuard = (route: ActivatedRouteSnapshot, state: RouterStateSnaps
     const router = inject(Router);
     const currentUser = inject(AuthService);
 
-    if (currentUser.isUserLoggedIn()) {
+    if (currentUser.isUserLoggedIn() && !currentUser.needsExtending()) {
         return true;
     }
 
