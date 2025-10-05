@@ -16,7 +16,7 @@
             <th><app-sorter [query]="qry()" field="name">Name</app-sorter></th>
             <th>Email</th>
             <th>Phone</th>
-            <th class="w-1"></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +25,10 @@
             <td>{{ item.name }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.phone }}</td>
-            <td><a routerLink="." (click)="open(item.id)">Edit</a></td>
+            <td class="text-end">
+              <a routerLink="." (click)="delete(deleteDialog, item.id)"><svg trash></svg></a> |
+              <a routerLink="." (click)="open(item.id)">Edit</a>
+            </td>
           </tr>
           }
         </tbody>
@@ -38,3 +41,15 @@
     </app-card>
   </div>
 </div>
+
+<ng-template #deleteDialog let-dialog>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Remove venue?</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="dialog.dismiss()"></button>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dialog.dismiss()">No</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="dialog.close()">Yes</button>
+  </div>
+</ng-template>

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { injectQueryParams } from 'ngxtension/inject-query-params';
 
 import { CardsModule } from '@components/cards';
@@ -21,10 +21,16 @@ import { withDefaultFilters } from '@app-types/search-query';
 export class SearchComponent {
   readonly #peopleSvc = inject(PersonService);
 
+  readonly #router = inject(Router);
+
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 
   protected readonly people = rxResource({
     request: () => this.qry(),
     loader: (params) => this.#peopleSvc.search(params.request),
   });
+
+  protected viewPerson(id: number) {
+    this.#router.navigateByUrl(`/people/${id}`)
+  }
 }

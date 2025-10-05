@@ -4,6 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { UserModel } from '@app-types/auth.service';
 
+type LoginForm = ReturnType<LoginService['createForm']>['value'];
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +19,14 @@ export class LoginService {
     password: ['', Validators.required],
   });
 
-  public login() {
-    return this.#client.post<UserModel>('/api/auth/login', this.form.value);
+  public login(form: LoginForm) {
+    return this.#client.post<UserModel>('/api/auth/login', form);
+  }
+
+  public createForm() {
+    return this.#fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
 }

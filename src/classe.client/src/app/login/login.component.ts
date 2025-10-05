@@ -31,10 +31,8 @@ export class LoginComponent {
 
   protected readonly submitting = signal(false);
 
-  protected get form() {
-    return this.#loginSvc.form;
-  }
-
+  protected readonly form = this.#loginSvc.createForm();
+  
   public login() {
     this.form.markAllAsTouched();
 
@@ -44,7 +42,7 @@ export class LoginComponent {
 
     this.submitting.set(true);
     this.#loginSvc
-      .login()
+      .login(this.form.value)
       .pipe(takeUntilDestroyed(this.#destroyed))
       .subscribe({
         next: (u) => {

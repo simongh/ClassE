@@ -6,3 +6,4 @@ export { UsersIcon } from './users-icon';
 export { ChevronLeftIcon } from './chevron-left-icon';
 export { ChevronRightIcon } from './chevron-right-icon';
 export { PlusIcon } from './plus-icon';
+export { TrashIcon } from './trash-icon';

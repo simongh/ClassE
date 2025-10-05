@@ -7,6 +7,6 @@ import { ToastComponent } from '@components/toast/toast.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, ToastComponent],
+  imports: [RouterOutlet],
 })
 export class AppComponent {}

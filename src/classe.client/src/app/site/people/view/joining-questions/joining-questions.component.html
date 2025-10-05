@@ -1,1 +1,91 @@
-<p>joining-questions works!</p>
+<div class="row mb-2">
+  <div class="col-3 col-form-label">Regular Exercise</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.regularExercise ? "Yes" : "No" }}
+  </div>
+  <div class="col-3 col-form-label">Any Other Exercise</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.otherExercise }}
+  </div>
+</div>
+<div class="row mb-2">
+  <div class="col-3 col-form-label">Any Other Goals</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.goals }}
+  </div>
+  <div class="col-3 col-form-label">Existing Medical Conditions</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.existingMedicalConditions }}
+  </div>
+</div>
+<div class="row mb-2">
+  <div class="col-3 col-form-label">Any Joint Injury</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.jointInjuries ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Additional Needs</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.additionalNeeds }}
+  </div>
+</div>
+<div class="row mb-2">
+  <div class="col-3 col-form-label">Doctors Recommendations</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.doctorRecommendations }}
+  </div>
+</div>
+<div class="row mb-0">
+  <div class="col-3 col-form-label">Any pain on physical activity</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.painOnPhysicalActivity ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Any chest pain</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.chestPain ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Any dizziness</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.dizziness ? 'Yes' : 'No' }}
+  </div>
+</div>
+<div class="row mb-0">
+  <div class="col-3 col-form-label">Any doctor prescribed medications</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.doctorPrescribedDrugs ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Any bone or joint problems</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.boneOrJointProblems ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Any history of epilepsy</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.epilepsy ? 'Yes' : 'No' }}
+  </div>
+</div>
+<div class="row mb-0">
+  <div class="col-3 col-form-label">Any history of diabetes</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.diabetes ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Any history of asthma</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.asthma ? 'Yes' : 'No' }}
+  </div>
+  <div class="col-3 col-form-label">Any other reason not to undertake physical activity</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.anyReasonNotToDoPhysicalActivity ? 'Yes' : 'No' }}
+  </div>
+</div>
+<div class="row mb-2">
+  <div class="col-3 col-form-label">Have any of the above been discussed with doctor</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.discussedAboveWithDoctor ? 'Yes' : 'No' }}
+  </div>
+</div>
+<div class="row mb-2">
+  <div class="col-3 col-form-label">Additional Info</div>
+  <div class="col form-control-plaintext">
+    {{ person()?.joiningQuestions?.additionalInfo }}
+  </div>
+</div>
+<hr/>

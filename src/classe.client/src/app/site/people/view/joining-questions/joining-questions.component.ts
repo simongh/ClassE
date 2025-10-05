@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+
+import { Person } from '@api/people/person';
 
 @Component({
   selector: 'app-joining-questions',
@@ -7,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './joining-questions.component.css'
 })
 export class JoiningQuestionsComponent {
-
+  public readonly person = input<Person>();
 }
