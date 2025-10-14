@@ -62,35 +62,6 @@ namespace ClassE.Controllers.Api
             return Ok(await _mediator.Send(query));
         }
 
-        [HttpPost("{person:int}/payments")]
-        public async Task<IActionResult> CreatePaymentAsync(int person, Payments.UpdateCommand command)
-        {
-            await _mediator.Send(command with
-            {
-                Person = person,
-            });
-
-            return Created();
-        }
-
-        [HttpPut("{person:int}/payments/{payment:int}")]
-        public async Task<IActionResult> UpdatePaymentAsync(int person, int payment, Payments.UpdateCommand command)
-        {
-            await _mediator.Send(command with
-            {
-                Person = person,
-                Id = payment,
-            });
-            return NoContent();
-        }
-
-        [HttpDelete("{person:int}/payments/{id:int}")]
-        public async Task<IActionResult> DeletePaymentAsync([FromRoute] Payments.DeleteCommand command)
-        {
-            await _mediator.Send(command);
-            return NoContent();
-        }
-
         [HttpGet("{id:int}/sessions")]
         public async Task<IActionResult> SessionsQueryAsync(int id, [FromQuery] Sessions.SessionsQuery query)
         {

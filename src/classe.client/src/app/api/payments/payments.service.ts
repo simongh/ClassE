@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { EMPTY, of } from 'rxjs';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 
-import { SearchQuery } from '@app-types/search-query';
+import { dateString } from '@app-types/dateString';
+import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
 import { Payment } from './payment';
-import { PaymentModel } from './payment.model';
+
+export type PaymentForm = ReturnType<PaymentsService['createForm']>['value'];
 
 @Injectable({
   providedIn: 'root',
@@ -14,56 +16,36 @@ import { PaymentModel } from './payment.model';
 export class PaymentsService {
   readonly #httpClient = inject(HttpClient);
 
-  public search(query: SearchQuery) {
-    return of<SearchResults<Payment>>({
-      total: 0,
-      results: [
-        {
-          id: 99,
-          date: '2025-06-01',
-          amount: 10,
-          person: {
-            id: 0,
-            name: 'Simon Halsey',
-          },
-        },
-      ],
+  readonly #fb = inject(NonNullableFormBuilder);
+
+  public createForm() {
+    return this.#fb.group({
+      created: [null as dateString | null, Validators.required],
+      amount: [0, Validators.required],
+      person: [null as number | null, Validators.required],
     });
-    // const p = toParams(query);
-    // return this.#httpClient.get<SearchResults<Summary>>('/api/venues', {
-    //   params: p,
-    // });
+  }
+
+  public search(query: SearchQuery) {
+    const p = toParams(query);
+    return this.#httpClient.get<SearchResults<Payment>>('/api/payments', {
+      params: p,
+    });
   }
 
   public get(id: number) {
-    return of<Payment>({
-      id: 99,
-      date: '2025-06-01',
-      amount: 0,
-      person: {
-        id: 0,
-        name: 'bob bobson',
-      },
-    });
-    //return this.#httpClient.get<Summary>(`/api/payments/${id}`);
+    return this.#httpClient.get<Payment>(`/api/payments/${id}`);
   }
 
-  public update(id: number, payment: PaymentRequest) {
-    return of(true);
-    //return this.#httpClient.put(`/api/payments/${id}`,payment);
+  public update(id: number, payment: PaymentForm) {
+    return this.#httpClient.put(`/api/payments/${id}`, payment);
   }
 
-  public create(payment: PaymentRequest) {
-    return EMPTY;
-    // return this.#httpClient.post(`/api/payments`,payment);
+  public create(payment: PaymentForm) {
+    return this.#httpClient.post(`/api/payments`, payment);
   }
 
   public delete(id: number) {
-    return EMPTY;
-    //return this.#httpClient.delete(`/api/payments/${id}`);
+    return this.#httpClient.delete(`/api/payments/${id}`);
   }
-}
-
-interface PaymentRequest extends PaymentModel {
-  person: number;
 }

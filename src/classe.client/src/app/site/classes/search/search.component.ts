@@ -11,7 +11,6 @@ import { SorterComponent } from '@components/sorter/sorter.component';
 import { ClassesService } from '@api/classes/classes.service';
 import { withDefaultFilters } from '@app-types/search-query';
 
-
 @Component({
   selector: 'app-search',
   imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent, CardsModule],

@@ -11,33 +11,53 @@
   <form [formGroup]="form" class="g-3">
     <div class="row mb-3">
       <div class="col-6">
-        <label for="date" class="form-label">Date</label>
-        <input
-          id="date"
-          type="date"
-          class="form-control"
-          formControlName="date"
-        />
+        <label for="created" class="form-label required">Date</label>
+        <div class="input-icon">
+          <input
+            id="created"
+            type="text"
+            class="form-control"
+            formControlName="created"
+            ngbDatepicker
+            #d="ngbDatepicker"
+            (click)="d.toggle()"
+          />
+          <span class="input-icon-addon"><svg calendar></svg></span>
+        </div>
+        <app-validator-message controlName="created" validatorName="required"
+          >Date is required</app-validator-message
+        >
       </div>
       <div class="col-6">
-        <label for="amount" class="form-label">Amount</label>
-        <input
-          id="amount"
-          type="number"
-          class="form-control"
-          formControlName="amount"
-          placeholder="£0.00"
-          data-mask="0.00"
-          data-mask-visible="true"
-        />
+        <label for="amount" class="form-label required">Amount</label>
+        <div class="input-group input-group-flat">
+          <span class="input-group-text">£</span>
+          <input
+            id="amount"
+            type="number"
+            class="form-control ps-1"
+            formControlName="amount"
+            placeholder="0.00"
+            data-mask="0.00"
+            data-mask-visible="true"
+          />
+        </div>
+        <app-validator-message controlName="amount" validatorName="required"
+          >An amount is required</app-validator-message
+        >
       </div>
     </div>
+    @if (showPersonPicker()) {
     <div class="row mb-3">
       <div class="col">
-        <span class="form-label">Person</span>
+        <span class="form-label required">Person</span>
         <app-person-list [control]="form.controls.person" />
+        <app-validator-message controlName="person" validatorName="required"
+          >A person is required</app-validator-message
+        >
       </div>
     </div>
+    }
   </form>
 </div>
 <div class="modal-footer">
@@ -49,7 +69,6 @@
     Cancel
   </button>
   <button type="button" class="btn btn-primary ms-auto" (click)="save()">
-    <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
     @if (id() === 0) {
     <svg plus-icon></svg> Add new } @else { Update }payment
   </button>

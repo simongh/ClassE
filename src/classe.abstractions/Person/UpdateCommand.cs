@@ -1,37 +1,12 @@
-﻿using ClassE.Entities;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace ClassE.Person
 {
-    public record UpdateCommand : IRequest<int>
+    public record UpdateCommand : PersonModel, IRequest<int>
     {
         public int? Id { get; set; }
-
-        public string FirstName { get; init; } = null!;
-
-        public string LastName { get; init; } = null!;
-
-        public string? Email { get; init; }
-
-        public string? Phone { get; init; }
-
-        public string? Address { get; init; }
-
-        public DateTime DateOfBirth { get; init; }
-
-        public Gender Gender { get; init; }
-
-        public string? Occupation { get; init; }
-
-        public string? EmergencyContact { get; init; }
-
-        public string? EmergencyContactNumber { get; init; }
-
-        public string? Notes { get; init; }
-
-        public DateTime? ConsentDate { get; init; }
 
         public JoiningQuestionsModel? JoiningQuestions { get; init; }
     }

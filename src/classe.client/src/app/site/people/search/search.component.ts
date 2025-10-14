@@ -31,6 +31,6 @@ export class SearchComponent {
   });
 
   protected viewPerson(id: number) {
-    this.#router.navigateByUrl(`/people/${id}`)
+    this.#router.navigateByUrl(`/people/${id}`);
   }
 }

@@ -1,6 +1,8 @@
 <form [formGroup]="form()">
-  <div class="row mb-3">
-    <label class="col-3 col-form-label" for="firstName">First Name</label>
+  <div class="row">
+    <label class="col-3 col-form-label required text-end" for="firstName"
+      >First Name</label
+    >
     <input
       class="col form-control"
       id="firstName"
@@ -8,7 +10,9 @@
       placeholder="First Name"
       formControlName="firstName"
     />
-    <label class="col-3 col-form-label" for="lastName">Last Name</label>
+    <label class="col-3 col-form-label required text-end" for="lastName"
+      >Last Name</label
+    >
     <input
       class="col form-control"
       id="lastName"
@@ -18,49 +22,78 @@
     />
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="email">Email</label>
+    <div class="offset-3 col">
+      <app-validator-message controlName="firstName" validatorName="required"
+        >First name is required</app-validator-message
+      >
+    </div>
+    <div class="offset-3 col">
+      <app-validator-message controlName="lastName" validatorName="required"
+        >Last name is required</app-validator-message
+      >
+    </div>
+  </div>
+  <div class="row">
+    <label class="col-3 col-form-label text-end" for="email">Email</label>
     <input
       class="col form-control"
       id="email"
       type="email"
       formControlName="email"
-      placeholder="Email"
+      placeholder="name@domain.cc"
     />
-    <label class="col-3 col-form-label" for="phone">Phone</label>
+    <label class="col-3 col-form-label text-end" for="phone">Phone</label>
     <input
       class="col form-control"
       id="phone"
       type="tel"
       formControlName="phone"
+      placeholder="01234 123456"
     />
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="address">Address</label>
+    <div class="offset-3 col">
+      <app-validator-message controlName="email" validatorName="email"
+        >Must be a valid email address</app-validator-message
+      >
+    </div>
+  </div>
+  <div class="row mb-3">
+    <label class="col-3 col-form-label text-end" for="address">Address</label>
     <textarea
       class="col form-control"
       id="address"
       formControlName="address"
-      placeholder="Address"
       rows="4"
     ></textarea>
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="gender">Gender</label>
+    <label class="col-3 col-form-label text-end" for="gender">Gender</label>
     <select class="col form-select" id="gender" formControlName="gender">
       <option disabled></option>
       <option value="Male">Male</option>
       <option value="Female">Female</option>
     </select>
-    <label class="col-3 col-form-label" for="dateOfBirth">Date of Birth</label>
-    <input
-      class="col form-control"
-      id="dateOfBirth"
-      type="date"
-      formControlName="dateOfBirth"
-    />
+    <label class="col-3 col-form-label text-end" for="dateOfBirth"
+      >Date of Birth</label
+    >
+    <div class="input-icon col">
+      <input
+        class="form-control"
+        id="dateOfBirth"
+        type="text"
+        formControlName="dateOfBirth"
+        ngbDatepicker
+        #d="ngbDatepicker"
+        (click)="d.toggle()"
+      />
+      <span class="input-icon-addon"><svg calendar></svg></span>
+    </div>
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="occupation">Occupation</label>
+    <label class="col-3 col-form-label text-end" for="occupation"
+      >Occupation</label
+    >
     <input
       class="col form-control"
       id="occupation"
@@ -69,7 +102,7 @@
     />
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="emergencyContact"
+    <label class="col-3 col-form-label text-end" for="emergencyContact"
       >Emergency Contact</label
     >
     <input
@@ -78,7 +111,7 @@
       type="text"
       formControlName="emergencyContact"
     />
-    <label class="col-3 col-form-label" for="emergencyContactNumber"
+    <label class="col-3 col-form-label text-end" for="emergencyContactNumber"
       >Emergency Contact Number</label
     >
     <input
@@ -86,10 +119,11 @@
       id="emergencyContactNumber"
       type="tel"
       formControlName="emergencyContactNumber"
+      placeholder="01234 123456"
     />
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="notes">Notes</label>
+    <label class="col-3 col-form-label text-end" for="notes">Notes</label>
     <textarea
       class="col form-control"
       id="notes"
@@ -98,13 +132,21 @@
     ></textarea>
   </div>
   <div class="row mb-3">
-    <label class="col-3 col-form-label" for="consentDate">Consent Signed</label>
-    <input
-      class="col form-control"
-      id="consentDate"
-      type="date"
-      formControlName="consentDate"
-    />
+    <label class="col-3 col-form-label text-end" for="consentDate"
+      >Consent Signed</label
+    >
+    <div class="input-icon col">
+      <input
+        class="col form-control"
+        id="consentDate"
+        type="text"
+        formControlName="consentDate"
+        ngbDatepicker
+        #dc="ngbDatepicker"
+        (click)="dc.toggle()"
+      />
+      <span class="input-icon-addon"><svg calendar></svg></span>
+    </div>
   </div>
   <div class="hr-text">Joining Questions</div>
   <div formGroupName="joiningQuestions">
@@ -122,7 +164,7 @@
       </label>
     </div>
     <div class="row mb-3">
-      <label class="col-3 col-form-label" for="otherExercise"
+      <label class="col-3 col-form-label text-end" for="otherExercise"
         >Any Other Exercise</label
       >
       <input
@@ -133,7 +175,7 @@
       />
     </div>
     <div class="row mb-3">
-      <label class="col-3 col-form-label" for="goals">Goals</label>
+      <label class="col-3 col-form-label text-end" for="goals">Goals</label>
       <input
         class="col form-control"
         id="goals"
@@ -142,7 +184,9 @@
       />
     </div>
     <div class="row mb-3">
-      <label class="col-3 col-form-label" for="existingMedicalConditions"
+      <label
+        class="col-3 col-form-label text-end"
+        for="existingMedicalConditions"
         >Existing Medical Conditions</label
       >
       <input
@@ -166,7 +210,7 @@
       </label>
     </div>
     <div class="row mb-3">
-      <label class="col-3 col-form-label" for="additionalNeeds"
+      <label class="col-3 col-form-label text-end" for="additionalNeeds"
         >Additional Needs</label
       >
       <input
@@ -177,7 +221,7 @@
       />
     </div>
     <div class="row mb-3">
-      <label class="col-3 col-form-label" for="doctorRecommendations"
+      <label class="col-3 col-form-label text-end" for="doctorRecommendations"
         >Doctors Recommendations</label
       >
       <input
@@ -228,7 +272,9 @@
             formControlName="doctorPrescribedDrugs"
             value="true"
           />
-          <span class="form-check-label">Any doctor prescribed medications</span>
+          <span class="form-check-label"
+            >Any doctor prescribed medications</span
+          >
         </label>
         <label class="form-check col mt-2" for="boneOrJointProblems">
           <input
@@ -270,7 +316,10 @@
           />
           <span class="form-check-label">Any history of asthma</span>
         </label>
-        <label class="form-check col mt-2" for="anyReasonNotToDoPhysicalActivity">
+        <label
+          class="form-check col mt-2"
+          for="anyReasonNotToDoPhysicalActivity"
+        >
           <input
             class="form-check-input"
             type="checkbox"
@@ -278,7 +327,9 @@
             formControlName="anyReasonNotToDoPhysicalActivity"
             value="true"
           />
-          <span class="form-check-label">Any other reason not to undertake physical activity</span>
+          <span class="form-check-label"
+            >Any other reason not to undertake physical activity</span
+          >
         </label>
         <label class="form-check col mt-2" for="discussedAboveWithDoctor">
           <input
@@ -288,12 +339,14 @@
             formControlName="discussedAboveWithDoctor"
             value="true"
           />
-          <span class="form-check-label">Have any of the above been discussed with doctor</span>
+          <span class="form-check-label"
+            >Have any of the above been discussed with doctor</span
+          >
         </label>
       </div>
     </div>
     <div class="row mb-3">
-      <label class="col-3 col-form-label" for="additionalInfo"
+      <label class="col-3 col-form-label text-end" for="additionalInfo"
         >Additional Info</label
       >
       <textarea

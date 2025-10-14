@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,5 +17,5 @@ export class DetailsComponent {
 
   public readonly hideDetails = signal(true);
 
-  public readonly hideJoining = signal(true)
+  public readonly hideJoining = signal(true);
 }

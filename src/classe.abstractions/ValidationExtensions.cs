@@ -8,7 +8,7 @@ namespace ClassE
         {
             return ruleBuilder
                 .MaximumLength(16)
-                .Matches(@"(?:(?:\(0\d+\))|0\d+) ?\d. ?\d*")
+                .Matches(@"^(?:(?:\(0\d+\))|0\d+) ?\d. ?\d*$")
                 .WithMessage("Invalid phone number");
         }
     }

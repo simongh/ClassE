@@ -1,19 +1,19 @@
-import { Component, DestroyRef, inject, input, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbActiveModal, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 
 import { PersonListComponent } from '@components/person-list/person-list.component';
-import { PlusIcon } from '@components/svg';
+import { PlusIcon, CalendarIcon } from '@components/svg';
 import { ToastService } from '@components/toast/toast.service';
+import { ValidatorMessageComponent } from '@components/validator-message/validator-message.component';
 
-import { Payment } from '@api/payments/payment';
+import { PaymentModel } from '@api/payments/payment.model';
 import { PaymentsService } from '@api/payments/payments.service';
-import { dateString } from '@app-types/dateString';
 
 @Component({
   selector: 'app-payment-modal',
-  imports: [ReactiveFormsModule, PersonListComponent, PlusIcon],
+  imports: [ReactiveFormsModule, PersonListComponent, PlusIcon, ValidatorMessageComponent, NgbInputDatepicker, CalendarIcon],
   templateUrl: './payment-modal.component.html',
   styleUrl: './payment-modal.component.css',
 })
@@ -22,15 +22,9 @@ export class PaymentModalComponent {
 
   readonly #toastSvc = inject(ToastService);
 
-  readonly #fb = inject(FormBuilder);
-
   readonly #destroyed = inject(DestroyRef);
 
-  protected readonly form = this.#fb.group({
-    date: [null as dateString | null, Validators.required],
-    amount: [0, Validators.required],
-    person: [0],
-  });
+  protected readonly form = this.#svc.createForm();
 
   protected readonly saving = signal(false);
 
@@ -38,31 +32,27 @@ export class PaymentModalComponent {
 
   protected id = signal(0);
 
-  public load(payment: Payment) {
+  public readonly showPersonPicker = signal(true);
+
+  public load(payment: PaymentModel, person: number) {
     this.id.set(payment.id);
 
     this.form.setValue({
-      date: payment?.date,
+      created: payment?.created,
       amount: payment?.amount,
-      person: payment?.person.id,
+      person: person,
     });
   }
 
   protected save() {
-    this.form.markAsTouched();
+    this.form.markAllAsTouched();
     if (this.form.invalid) {
       return;
     }
 
     this.saving.set(true);
 
-    const payload = {
-      date: this.form.value.date!,
-      amount: this.form.value.amount!,
-      person: this.form.value.person!,
-    };
-
-    (this.id() === 0 ? this.#svc.create(payload) : this.#svc.update(this.id(), payload))
+    (this.id() === 0 ? this.#svc.create(this.form.value) : this.#svc.update(this.id(), this.form.value))
       .pipe(takeUntilDestroyed(this.#destroyed))
       .subscribe({
         next: () => {
@@ -80,13 +70,13 @@ export class PaymentModalComponent {
     this.modal.close();
   }
 
-  private resetForm() {
+  private resetForm(person?: number) {
     this.id.set(0);
 
     this.form.setValue({
-      date: null,
+      created: null,
       amount: 0,
-      person: 0,
+      person: !person ? null : person,
     });
   }
 }

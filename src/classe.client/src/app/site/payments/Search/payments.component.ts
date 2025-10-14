@@ -58,7 +58,7 @@ export class PaymentsComponent {
     if (payment == null) {
       modal.componentInstance.resetForm();
     } else {
-      modal.componentInstance.load(payment);
+      modal.componentInstance.load(payment, payment.person.id);
     }
   }
 }

@@ -9,7 +9,6 @@ import { Class } from './class';
 import { ClassModel } from './class.model';
 import { Summary } from './summary';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -19,19 +18,21 @@ export class ClassesService {
   public search(query: { all: boolean } & SearchQuery) {
     return of<SearchResults<Summary>>({
       total: 41,
-      results: [{
-        id: 0,
-        startTime: '18:00',
-        duration: 60,
-        dayOfWeek: 'Thursday',
-        isActive: true,
-        booked: 5,
-        waiting: 5,
-        venue: {
+      results: [
+        {
           id: 0,
-          name: ' the hall'
-        }
-      }],
+          startTime: '18:00',
+          duration: 60,
+          dayOfWeek: 'Thursday',
+          isActive: true,
+          booked: 5,
+          waiting: 5,
+          venue: {
+            id: 0,
+            name: ' the hall',
+          },
+        },
+      ],
     });
     // let p = toParams(query);
 
@@ -56,7 +57,7 @@ export class ClassesService {
     return this.#httpClient.post<number>('/api/classes', theClass);
   }
 
-  public delete(id: number){
+  public delete(id: number) {
     return this.#httpClient.delete(`/api/classes/${id}`);
   }
 }

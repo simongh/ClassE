@@ -2,15 +2,8 @@
 
 namespace ClassE.Venue
 {
-    public record VenueResult
+    public record VenueResult : VenueModel
     {
-        public string Name { get; init; } = null!;
-
-        public string? Email { get; init; }
-
-        public string? Phone { get; init; }
-        public string? Address { get; init; }
-
         private class Mapping : Profile
         {
             public Mapping()

@@ -13,5 +13,4 @@ export class SorterComponent {
   public readonly query = input.required<SearchQuery>();
 
   public readonly field = input.required<string>();
-
 }

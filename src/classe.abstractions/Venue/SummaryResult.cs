@@ -2,21 +2,18 @@
 
 namespace ClassE.Venue
 {
-    public record SummaryResult
+    public record SummaryResult : VenueBaseModel
     {
         public int Id { get; init; }
 
-        public string Name { get; init; } = null!;
-
-        public string? Email { get; init; }
-
-        public string? Phone { get; init; }
+        public bool Deletable { get; init; }
 
         private class Mapping : Profile
         {
             public Mapping()
             {
-                CreateMap<Entities.Venue, SummaryResult>();
+                CreateMap<Entities.Venue, SummaryResult>()
+                    .ForMember(m => m.Deletable, config => config.MapFrom(m => m.classes.Count == 0));
             }
         }
     }

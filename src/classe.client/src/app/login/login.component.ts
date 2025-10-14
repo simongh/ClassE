@@ -32,7 +32,7 @@ export class LoginComponent {
   protected readonly submitting = signal(false);
 
   protected readonly form = this.#loginSvc.createForm();
-  
+
   public login() {
     this.form.markAllAsTouched();
 

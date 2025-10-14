@@ -6,7 +6,7 @@ import { ToastComponent } from '@components/toast/toast.component';
 
 @Component({
   selector: 'app-site',
-  imports: [SidebarComponent, RouterOutlet,ToastComponent],
+  imports: [SidebarComponent, RouterOutlet, ToastComponent],
   templateUrl: './site.component.html',
   styleUrl: './site.component.css',
 })

@@ -13,6 +13,7 @@
       <div class="col">
         <label for="name" class="form-label required">Name</label>
         <input id="name" type="text" class="form-control" formControlName="name" placeholder="Venue Name" />
+        <app-validator-message controlName="name" validatorName="required">A name is required</app-validator-message>
       </div>
     </div>
     <div class="row mt-2">

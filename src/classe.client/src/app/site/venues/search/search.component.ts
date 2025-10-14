@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, TemplateRef } from '@angular/core';
+import { Component, DestroyRef, inject, signal, TemplateRef } from '@angular/core';
 import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,7 @@ import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from '@components/sorter/sorter.component';
 import { PlusIcon, TrashIcon } from '@components/svg';
 
+import { Summary } from '@api/venues/summary';
 import { VenueService } from '@api/venues/venue.service';
 import { withDefaultFilters } from '@app-types/search-query';
 
@@ -35,6 +36,8 @@ export class SearchComponent {
     loader: (params) => this.#venueSvc.search(params.request),
   });
 
+  protected readonly venueName = signal<string>('');
+
   protected open(id = 0) {
     const modal = this.#modalSvc.open(EditModalComponent);
 
@@ -43,10 +46,19 @@ export class SearchComponent {
     modal.componentInstance.load(id);
   }
 
-  protected delete(content: TemplateRef<unknown>, id: number) {
+  protected delete(content: TemplateRef<unknown>, venue: Summary) {
+    this.venueName.set(venue.name);
+
     this.#modalSvc.open(content).result.then(
-      (result) => console.log('result'),
-      (reason) => console.log('reason')
+      () => {
+        this.#venueSvc
+          .delete(venue.id)
+          .pipe(takeUntilDestroyed(this.#destroyed))
+          .subscribe(() => {
+            this.venues.reload();
+          });
+      },
+      () => ''
     );
   }
 }

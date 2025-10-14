@@ -26,7 +26,8 @@
             <td>{{ item.email }}</td>
             <td>{{ item.phone }}</td>
             <td class="text-end">
-              <a routerLink="." (click)="delete(deleteDialog, item.id)"><svg trash></svg></a> |
+              @if (item.deletable) {
+              <a routerLink="." (click)="delete(deleteDialog, item)"><svg trash></svg></a> | }
               <a routerLink="." (click)="open(item.id)">Edit</a>
             </td>
           </tr>
@@ -47,7 +48,7 @@
     <h4 class="modal-title" id="modal-basic-title">Remove venue?</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="dialog.dismiss()"></button>
   </div>
-  <div class="modal-body"></div>
+  <div class="modal-body">Remove '{{ venueName() }}' venue?</div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="dialog.dismiss()">No</button>
     <button type="button" class="btn btn-outline-secondary" (click)="dialog.close()">Yes</button>

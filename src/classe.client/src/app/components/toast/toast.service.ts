@@ -13,7 +13,7 @@ export class ToastService {
     });
   }
 
-    public addFailure(message: string) {
+  public addFailure(message: string) {
     this.toasts.push({
       message: message,
       class: 'bg-danger text-light',

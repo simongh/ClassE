@@ -26,6 +26,7 @@ namespace ClassE.Payments
                     PersonId = request.Person
                 };
                 _dataContext.Payments.Add(payment);
+                person.Balance += request.Amount;
             }
             else
             {

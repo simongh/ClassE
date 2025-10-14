@@ -50,7 +50,7 @@ namespace ClassE
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = builder.Configuration["class£:siteUrl"],
+                        ValidIssuer = builder.Configuration["classE:siteUrl"],
                         ValidAudience = builder.Configuration["classE:siteUrl"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["classE:secret"]!))
                     };

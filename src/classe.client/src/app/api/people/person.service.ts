@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { EMPTY, of } from 'rxjs';
 
 import { IdName } from '@api/idname';
+import { PaymentModel } from '@api/payments/payment.model';
 import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
@@ -41,7 +42,7 @@ export class PersonService {
   }
 
   public update(id: number, person: PersonForm) {
-    return this.#httpClient.put(`/api/people/${id}`,person);
+    return this.#httpClient.put(`/api/people/${id}`, person);
   }
 
   public create(person: PersonForm) {
@@ -49,13 +50,7 @@ export class PersonService {
   }
 
   public list() {
-    return of<IdName[]>([
-      {
-        id: 1,
-        name: 'first name',
-      },
-    ]);
-    //return this.#httpClient.get<IdName>('/api/people/list');
+    return this.#httpClient.get<IdName[]>('/api/people/list');
   }
 
   public form(person?: PersonModel | null) {
@@ -92,6 +87,12 @@ export class PersonService {
         discussedAboveWithDoctor: [person?.joiningQuestions.discussedAboveWithDoctor ?? false],
         additionalInfo: [person?.joiningQuestions.additionalInfo ?? null],
       }),
+    });
+  }
+
+  public payments(person: number) {
+    return this.#httpClient.get<SearchResults<PaymentModel>>(`/api/people/${person}/payments`, {
+      params: new HttpParams().set('limit', 5),
     });
   }
 }

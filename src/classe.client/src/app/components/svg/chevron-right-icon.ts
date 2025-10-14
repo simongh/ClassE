@@ -1,10 +1,12 @@
-import { Component, input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
+
+import { SvgIcon } from './svg';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg[chevron-right-icon]',
   template: `<svg:path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <svg:path d="M9 6l6 6l-6 6" />`,
+    <svg:path d="M9 6l6 6l-6 6" />`,
   host: {
     '[attr.xmlns]': 'xmlns',
     '[attr.width]': 'width()',
@@ -20,14 +22,4 @@ import { Component, input, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None,
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class ChevronRightIcon {
-  protected readonly xmlns = 'http://www.w3.org/2000/svg';
-
-  public readonly width = input<string | number>('24');
-
-  public readonly height = input<string | number>('24');
-
-  public readonly viewBox = input<string>('0 0 24 24');
-
-  public readonly fill = input<string>('none');
-}
+export class ChevronRightIcon extends SvgIcon {}

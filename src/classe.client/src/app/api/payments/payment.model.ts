@@ -1,7 +1,7 @@
 import { dateString } from '@app-types/dateString';
 
-export interface PaymentModel
-{
-    date: dateString;
-    amount: number;
+export interface PaymentModel {
+  id: number;
+  created: dateString;
+  amount: number;
 }

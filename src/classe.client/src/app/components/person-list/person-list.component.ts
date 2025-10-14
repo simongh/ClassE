@@ -8,11 +8,11 @@ import { PersonService } from '@api/people/person.service';
   selector: 'app-person-list',
   imports: [ReactiveFormsModule],
   template: `<select class="form-select" [formControl]="control()">
-  <option disabled></option>
-  @for (item of people(); track item) {
+    <option [value]="null" disabled></option>
+    @for (item of people(); track item) {
     <option [value]="item.id">{{ item.name }}</option>
     }
-    </select>`,
+  </select>`,
 })
 export class PersonListComponent {
   readonly #svc = inject(PersonService);

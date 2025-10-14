@@ -3,15 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClassE.Venue
 {
-    public record UpdateVenueCommand : IRequest<int>
+    public record UpdateVenueCommand : VenueModel, IRequest<int>
     {
         public int? Id { get; init; }
-
-        public string Name { get; init; } = null!;
-
-        public string? Email { get; init; }
-        public string? Phone { get; init; }
-        public string? Address { get; init; }
     }
 
     internal class UpdateVenueCommandHandler(

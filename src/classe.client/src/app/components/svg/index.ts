@@ -1,4 +1,5 @@
 export { BuildingsIcon } from './buildings-icon';
+export { CalendarIcon } from './calendar';
 export { CalendarWeekIcon } from './calendar-week-icon';
 export { CoinPoundIcon } from './coin-pound-icon';
 export { HomeIcon } from './home-icon';

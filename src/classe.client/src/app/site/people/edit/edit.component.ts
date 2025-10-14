@@ -1,14 +1,19 @@
-import { Component, computed, DestroyRef, effect, inject, input, output, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+
+import { CalendarIcon } from '@components/svg';
+import { ValidatorMessageComponent } from '@components/validator-message/validator-message.component';
 
 import { Person } from '@api/people/person';
 import { PersonService } from '@api/people/person.service';
 
+
 @Component({
   selector: 'app-edit',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ValidatorMessageComponent, NgbInputDatepicker, CalendarIcon],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css',
 })
@@ -29,7 +34,7 @@ export class EditComponent {
 
   protected readonly saving = signal(false);
 
-  protected readonly form = computed(()=> this.#svc.form(this.person()));
+  protected readonly form = computed(() => this.#svc.form(this.person()));
 
   protected cancel() {
     if (this.adding()) {
@@ -40,6 +45,9 @@ export class EditComponent {
   }
 
   protected save() {
+    this.form().markAllAsTouched();
+    if (!this.form().valid) return;
+
     this.saving.set(true);
 
     if (this.adding()) {

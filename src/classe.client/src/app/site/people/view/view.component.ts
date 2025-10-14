@@ -1,10 +1,7 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, computed, DestroyRef, inject, numberAttribute, signal } from '@angular/core';
-import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CurrencyPipe } from '@angular/common';
+import { Component, computed, inject, numberAttribute, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { injectParams } from 'ngxtension/inject-params';
-import { Observable } from 'rxjs';
 
 import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
@@ -12,28 +9,17 @@ import { PageHeaderComponent } from '@components/page-header/page-header.compone
 import { PersonService } from '@api/people/person.service';
 
 import { DetailsComponent } from './details/details.component';
-import { PaymentModalComponent } from './payment-modal/payment-modal.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-view',
-  imports: [
-    PageHeaderComponent,
-    DatePipe,
-    CurrencyPipe,
-    CardsModule,
-    PaymentsComponent,
-    DetailsComponent,
-    EditComponent,
-  ],
+  imports: [PageHeaderComponent, CurrencyPipe, CardsModule, PaymentsComponent, DetailsComponent, EditComponent],
   templateUrl: './view.component.html',
   styleUrl: './view.component.css',
 })
 export class ViewComponent {
   readonly #svc = inject(PersonService);
-
-  readonly #modalSvc = inject(NgbModal);
 
   protected readonly id = injectParams('id', { parse: numberAttribute });
 
@@ -46,19 +32,12 @@ export class ViewComponent {
     loader: (params) => this.#svc.get(params.request),
   });
 
-
-  public open() {
-    this.#modalSvc.open(PaymentModalComponent);
-  }
-
-  public saved()
-  {
+  public saved() {
     this.editing.set(false);
     this.person.reload();
   }
 
-  public edit()
-  {
+  public edit() {
     this.editing.set(true);
   }
 }

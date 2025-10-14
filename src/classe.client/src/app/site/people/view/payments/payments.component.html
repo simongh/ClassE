@@ -1,7 +1,7 @@
 <app-card>
   <app-card-header title="Payments">
     <div class="btn-list">
-      <button class="btn btn-0" (click)="open()">Add</button>
+      <button class="btn btn-0" (click)="add()">Add</button>
     </div>
   </app-card-header>
   <table class="table card-table">
@@ -14,7 +14,7 @@
     <tbody>
       @for (item of payments(); track $index) {
       <tr>
-        <td>{{ item.date | date : "dd MMM yyyy" }}</td>
+        <td>{{ item.created | date : "dd MMM yyyy" }}</td>
         <td>{{ item.amount | currency }}</td>
       </tr>
       } @empty {

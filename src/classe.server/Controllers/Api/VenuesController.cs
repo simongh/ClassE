@@ -20,8 +20,7 @@ namespace ClassE.Controllers.Api
         [HttpPost("")]
         public async Task<IActionResult> CreateAsync(Venue.UpdateVenueCommand command)
         {
-            //var result = await _mediator.Send(command);
-            var result = 5;
+            var result = await _mediator.Send(command);
             return CreatedAtAction("Get", new
             {
                 Id = result
