@@ -41,7 +41,7 @@
       </table>
       <app-card-footer>
         Showing <strong>{{ people.value()?.results?.length }}</strong> of
-        <strong>{{ people.value()?.total }}</strong> classes
+        <strong>{{ people.value()?.total }}</strong> people
 
         <app-pager [total]="people.value()?.total ?? 0" [query]="qry()" />
       </app-card-footer>

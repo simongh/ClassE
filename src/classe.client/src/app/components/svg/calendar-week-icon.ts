@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, input, InputSignal, ViewEncapsulation } from '@angular/core';
 
 import { SvgIcon } from './svg';
 
@@ -25,4 +25,6 @@ import { SvgIcon } from './svg';
   encapsulation: ViewEncapsulation.None,
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class CalendarWeekIcon extends SvgIcon {}
+export class CalendarWeekIcon extends SvgIcon {
+  public override fill = input<string>('currentColor');
+}

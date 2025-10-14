@@ -36,7 +36,7 @@
       </table>
       <app-card-footer>
         Showing <strong>{{ venues.value()?.results?.length }}</strong> of
-        <strong>{{ venues.value()?.total }}</strong> classes
+        <strong>{{ venues.value()?.total }}</strong> venues
         <app-pager [total]="venues.value()?.total ?? 0" [query]="qry()" />
       </app-card-footer>
     </app-card>
