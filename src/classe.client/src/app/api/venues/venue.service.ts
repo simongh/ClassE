@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 
+import { injectApi } from '@app-types/ApiResource';
 import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
@@ -18,6 +20,16 @@ export class VenueService {
 
   readonly #fb = inject(NonNullableFormBuilder);
 
+  public readonly createOrUpdate = injectApi((id: number, venue: VenueForm) => {
+    if (id === 0) {
+      return this.#httpClient.post<number>('/api/venues', venue);
+    } else {
+      return this.#httpClient.put<number>(`/api/venues/${id}`, venue);
+    }
+  });
+
+  public readonly delete = injectApi((id: number) => this.#httpClient.delete(`/api/venues/${id}`));
+
   public createForm() {
     return this.#fb.group({
       name: ['', Validators.required],
@@ -27,26 +39,17 @@ export class VenueService {
     });
   }
 
-  public search(query: SearchQuery) {
-    const p = toParams(query);
-    return this.#httpClient.get<SearchResults<Summary>>('/api/venues', {
-      params: p,
+  public search(p: () => SearchQuery) {
+    return rxResource({
+      request: p,
+      loader: (params) => {
+        const p = toParams(params.request);
+        return this.#httpClient.get<SearchResults<Summary>>('/api/venues', { params: p });
+      },
     });
   }
 
   public get(id: number) {
     return this.#httpClient.get<Venue>(`/api/venues/${id}`);
-  }
-
-  public update(id: number, venue: VenueForm) {
-    return this.#httpClient.put<number>(`/api/venues/${id}`, venue);
-  }
-
-  public create(venue: VenueForm) {
-    return this.#httpClient.post<number>('/api/venues', venue);
-  }
-
-  public delete(id: number) {
-    return this.#httpClient.delete(`/api/venues/${id}`);
   }
 }

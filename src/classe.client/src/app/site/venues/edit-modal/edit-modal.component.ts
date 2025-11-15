@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,13 +22,15 @@ export class EditModalComponent {
 
   readonly #toastSvc = inject(ToastService);
 
+  readonly #id = signal<number>(0);
+
   protected readonly modal = inject(NgbActiveModal);
 
-  protected readonly saving = signal(false);
+  protected readonly saving = computed(() => this.#svc.createOrUpdate.isLoading());
 
   protected readonly form = this.#svc.createForm();
 
-  protected readonly id = signal<number>(0);
+  protected readonly isNew = computed(() => this.#id() === 0);
 
   public load(id: number) {
     if (id === 0) {
@@ -38,7 +40,7 @@ export class EditModalComponent {
         .get(id)
         .pipe(takeUntilDestroyed(this.#destroyed))
         .subscribe((v) => {
-          this.id.set(id);
+          this.#id.set(id);
 
           this.form.setValue(v);
         });
@@ -51,19 +53,17 @@ export class EditModalComponent {
       return;
     }
 
-    this.saving.set(true);
-
-    (this.id() === 0 ? this.#svc.create(this.form.value) : this.#svc.update(this.id(), this.form.value))
-      .pipe(takeUntilDestroyed(this.#destroyed))
-      .subscribe({
+    this.#svc.createOrUpdate.load({
+      payload: [this.#id(), this.form.value],
+      subscriber: {
         next: () => {
           this.resetForm();
-          this.saving.set(false);
           this.modal.close();
 
           this.#toastSvc.addSuccess('Venue updated');
         },
-      });
+      },
+    });
   }
 
   protected close() {
@@ -72,7 +72,7 @@ export class EditModalComponent {
   }
 
   private resetForm() {
-    this.id.set(0);
+    this.#id.set(0);
 
     this.form.setValue({
       name: '',

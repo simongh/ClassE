@@ -1,5 +1,4 @@
-import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +9,6 @@ import { ValidatorMessageComponent } from '@components/validator-message/validat
 import { Person } from '@api/people/person';
 import { PersonService } from '@api/people/person.service';
 
-
 @Component({
   selector: 'app-edit',
   imports: [ReactiveFormsModule, ValidatorMessageComponent, NgbInputDatepicker, CalendarIcon],
@@ -18,8 +16,6 @@ import { PersonService } from '@api/people/person.service';
   styleUrl: './edit.component.css',
 })
 export class EditComponent {
-  readonly #destroyed = inject(DestroyRef);
-
   readonly #router = inject(Router);
 
   readonly #svc = inject(PersonService);
@@ -32,7 +28,7 @@ export class EditComponent {
 
   public readonly saved = output();
 
-  protected readonly saving = signal(false);
+  protected readonly saving = computed(() => this.#svc.create.isLoading() || this.#svc.update.isLoading());
 
   protected readonly form = computed(() => this.#svc.form(this.person()));
 
@@ -46,25 +42,26 @@ export class EditComponent {
 
   protected save() {
     this.form().markAllAsTouched();
-    if (!this.form().valid) return;
-
-    this.saving.set(true);
+    if (!this.form().valid) {
+      return;
+    }
 
     if (this.adding()) {
-      this.#svc
-        .create({ ...this.form().value })
-        .pipe(takeUntilDestroyed(this.#destroyed))
-        .subscribe((id) => {
-          this.#router.navigateByUrl(`/people/${id}`);
-        });
+      this.#svc.create.load({
+        payload: [this.form().value],
+        subscriber: {
+          next: (id) => this.#router.navigateByUrl(`/people/${id}`),
+        },
+      });
     } else {
-      this.#svc
-        .update(this.id()!, this.form().value)
-        .pipe(takeUntilDestroyed(this.#destroyed))
-        .subscribe(() => {
-          this.saving.set(false);
-          this.saved.emit();
-        });
+      this.#svc.update.load({
+        payload: [this.form().value, this.id()!],
+        subscriber: {
+          next: () => {
+            this.saved.emit();
+          },
+        },
+      });
     }
   }
 }

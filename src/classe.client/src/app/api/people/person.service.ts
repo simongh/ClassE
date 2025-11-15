@@ -1,10 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { IdName } from '@api/idname';
 import { PaymentModel } from '@api/payments/payment.model';
+import { injectApi } from '@app-types/ApiResource';
 import { SearchQuery, toParams } from '@app-types/search-query';
 import { SearchResults } from '@app-types/search-results';
 
@@ -22,31 +24,40 @@ export class PersonService {
 
   readonly #fb = inject(NonNullableFormBuilder);
 
-  public search(query: SearchQuery) {
-    const p = toParams(query);
-    return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
-      params: p,
+  public readonly create = injectApi((person: PersonForm) => this.#httpClient.post<number>('/api/people', person));
+
+  public readonly update = injectApi((person: PersonForm, id: number) =>
+    this.#httpClient.put<number>(`/api/people/${id}`, person)
+  );
+
+  public search(p: () => SearchQuery) {
+    return rxResource({
+      request: p,
+      loader: (query) => {
+        const p = toParams(query.request);
+        return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
+          params: p,
+        });
+      },
     });
   }
 
-  public get(id: number) {
-    if (id === 0) {
-      return of<Person | null>(null);
-    } else {
-      return this.#httpClient.get<Person>(`/api/people/${id}`);
-    }
+  public get(p: () => number) {
+    return rxResource({
+      request: p,
+      loader: (params) => {
+        const id = params.request;
+        if (id === 0) {
+          return of<Person | null>(null);
+        } else {
+          return this.#httpClient.get<Person>(`/api/people/${id}`);
+        }
+      },
+    });
   }
 
   public delete(id: number) {
     return this.#httpClient.delete(`/api/people/${id}`);
-  }
-
-  public update(id: number, person: PersonForm) {
-    return this.#httpClient.put(`/api/people/${id}`, person);
-  }
-
-  public create(person: PersonForm) {
-    return this.#httpClient.post<number>('/api/people', person);
   }
 
   public list() {

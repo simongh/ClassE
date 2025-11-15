@@ -19,18 +19,13 @@ import { EditComponent } from '../edit/edit.component';
   styleUrl: './view.component.css',
 })
 export class ViewComponent {
-  readonly #svc = inject(PersonService);
-
   protected readonly id = injectParams('id', { parse: numberAttribute });
 
   protected readonly adding = computed(() => this.id() === 0);
 
   protected readonly editing = signal<boolean>(this.adding());
 
-  protected readonly person = rxResource({
-    request: () => this.id()!,
-    loader: (params) => this.#svc.get(params.request),
-  });
+  protected readonly person = inject(PersonService).get(() => this.id()!);
 
   public saved() {
     this.editing.set(false);

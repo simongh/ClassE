@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { injectQueryParams } from 'ngxtension/inject-query-params';
 
@@ -25,10 +24,7 @@ export class SearchComponent {
 
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 
-  protected readonly people = rxResource({
-    request: () => this.qry(),
-    loader: (params) => this.#peopleSvc.search(params.request),
-  });
+  protected readonly people = this.#peopleSvc.search(() => this.qry());
 
   protected viewPerson(id: number) {
     this.#router.navigateByUrl(`/people/${id}`);

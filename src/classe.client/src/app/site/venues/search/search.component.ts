@@ -31,10 +31,7 @@ export class SearchComponent {
 
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 
-  protected readonly venues = rxResource({
-    request: () => this.qry(),
-    loader: (params) => this.#venueSvc.search(params.request),
-  });
+  protected readonly venues = this.#venueSvc.search(()=>this.qry());
 
   protected readonly venueName = signal<string>('');
 
@@ -51,12 +48,12 @@ export class SearchComponent {
 
     this.#modalSvc.open(content).result.then(
       () => {
-        this.#venueSvc
-          .delete(venue.id)
-          .pipe(takeUntilDestroyed(this.#destroyed))
-          .subscribe(() => {
-            this.venues.reload();
-          });
+        this.#venueSvc.delete.load({
+          payload: [venue.id],
+          subscriber: {
+            next: () => this.venues.reload(),
+          },
+        });
       },
       () => ''
     );

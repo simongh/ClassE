@@ -1,5 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { injectQueryParams } from 'ngxtension/inject-query-params';
@@ -23,13 +22,11 @@ export class LoginComponent {
 
   readonly #toastSvc = inject(ToastService);
 
-  readonly #destroyed = inject(DestroyRef);
-
   readonly #router = inject(Router);
 
   readonly #returnUrl = injectQueryParams((p) => p['returnUrl'] ?? '/');
 
-  protected readonly submitting = signal(false);
+  protected readonly submitting = computed(() => this.#loginSvc.login.isLoading());
 
   protected readonly form = this.#loginSvc.createForm();
 
@@ -40,11 +37,9 @@ export class LoginComponent {
       return;
     }
 
-    this.submitting.set(true);
-    this.#loginSvc
-      .login(this.form.value)
-      .pipe(takeUntilDestroyed(this.#destroyed))
-      .subscribe({
+    this.#loginSvc.login.load({
+      payload: [this.form.value],
+      subscriber: {
         next: (u) => {
           this.#authSvc.clear();
 
@@ -58,17 +53,14 @@ export class LoginComponent {
 
             this.#toastSvc.addFailure('Login failed. Please try again later');
           }
-
-          this.submitting.set(false);
         },
         error: () => {
           this.form.controls.password.setValue('');
           this.form.markAsUntouched();
 
-          this.submitting.set(false);
-
           this.#toastSvc.addFailure('Login failed. Please try again later');
         },
-      });
+      },
+    });
   }
 }

@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, DestroyRef, inject } from '@angular/core';
-import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { injectQueryParams } from 'ngxtension/inject-query-params';
@@ -35,18 +35,11 @@ import { PaymentModalComponent } from '../payment-modal/payment-modal.component'
 export class PaymentsComponent {
   readonly #destroyed = inject(DestroyRef);
 
-  readonly #paymentsSvc = inject(PaymentsService);
-
   readonly #modelSvc = inject(NgbModal);
 
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 
-  protected readonly payments = rxResource({
-    request: () => {
-      return { ...this.qry(), all: false };
-    },
-    loader: (params) => this.#paymentsSvc.search(params.request),
-  });
+  protected readonly payments = inject(PaymentsService).search(() => ({ ...this.qry(), all: false }));
 
   protected open(payment: Payment | null) {
     const modal = this.#modelSvc.open(PaymentModalComponent);

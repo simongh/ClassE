@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">{{ id() === 0 ? "New" : "Edit" }} Payment</h5>
+  <h5 class="modal-title">{{ isNew() ? "New" : "Edit" }} Payment</h5>
   <button
     type="button"
     class="btn-close"
@@ -69,7 +69,7 @@
     Cancel
   </button>
   <button type="button" class="btn btn-primary ms-auto" (click)="save()">
-    @if (id() === 0) {
+    @if (isNew()) {
     <svg plus-icon></svg> Add new } @else { Update }payment
   </button>
 </div>
