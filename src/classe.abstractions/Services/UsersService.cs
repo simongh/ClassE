@@ -36,8 +36,7 @@ namespace ClassE.Services
 
         private byte[] HashPassword(string password, Types.PhcFormat phc)
         {
-            using var hasher = new Rfc2898DeriveBytes(password, phc.Salt, phc.IterationCount, phc.HashAlgorithm);
-            return hasher.GetBytes(HashBytesSize);
+            return Rfc2898DeriveBytes.Pbkdf2(password, phc.Salt, phc.IterationCount, phc.HashAlgorithm, 24);
         }
 
         public string HashPassword(string password)
