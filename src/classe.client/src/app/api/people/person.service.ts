@@ -32,9 +32,9 @@ export class PersonService {
 
   public search(p: () => SearchQuery) {
     return rxResource({
-      request: p,
-      loader: (query) => {
-        const p = toParams(query.request);
+      params: p,
+      stream: (query) => {
+        const p = toParams(query.params);
         return this.#httpClient.get<SearchResults<Summary>>('/api/people', {
           params: p,
         });
@@ -44,9 +44,9 @@ export class PersonService {
 
   public get(p: () => number) {
     return rxResource({
-      request: p,
-      loader: (params) => {
-        const id = params.request;
+      params: p,
+      stream: (request) => {
+        const id = request.params;
         if (id === 0) {
           return of<Person | null>(null);
         } else {

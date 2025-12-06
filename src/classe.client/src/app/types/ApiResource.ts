@@ -25,7 +25,7 @@ export class ApiResourceRef<TApi extends apiFn, TValue = ExtractObservable<Retur
 
   readonly #error = signal(undefined);
 
-  readonly #status = signal(ResourceStatus.Idle);
+  readonly #status = signal<ResourceStatus>('idle');
 
   public readonly value = this.#value.asReadonly();
 
@@ -34,20 +34,20 @@ export class ApiResourceRef<TApi extends apiFn, TValue = ExtractObservable<Retur
   public readonly error = this.#error.asReadonly();
 
   public readonly isLoading = computed(
-    () => this.#status() == ResourceStatus.Loading || this.#status() == ResourceStatus.Reloading
+    () => this.#status() == 'loading' || this.#status() == 'reloading'
   );
 
   constructor(private request: TApi) {}
 
   public load(f: { subscriber: Partial<Observer<TValue>>; payload: Parameters<TApi> }): void {
     this.#error.set(undefined);
-    this.#status.set(ResourceStatus.Loading);
+    this.#status.set('loading');
 
     this.request(...f.payload)
       .pipe(takeUntilDestroyed(this.#destroyed))
       .subscribe({
         next: (value) => {
-          this.#status.set(ResourceStatus.Resolved);
+          this.#status.set('resolved');
           this.#value.set(value);
 
           if (f.subscriber.next) {
@@ -55,7 +55,7 @@ export class ApiResourceRef<TApi extends apiFn, TValue = ExtractObservable<Retur
           }
         },
         error: (err) => {
-          this.#status.set(ResourceStatus.Error);
+          this.#status.set('error');
           this.#error.set(err);
 
           if (f.subscriber.error) {
@@ -67,9 +67,9 @@ export class ApiResourceRef<TApi extends apiFn, TValue = ExtractObservable<Retur
 
   public hasValue() {
     return (
-      this.status() == ResourceStatus.Local ||
-      this.status() == ResourceStatus.Resolved ||
-      this.status() == ResourceStatus.Reloading
+      this.status() == 'local' ||
+      this.status() == 'resolved' ||
+      this.status() == 'reloading'
     );
   }
 }

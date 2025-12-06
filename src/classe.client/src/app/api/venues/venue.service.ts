@@ -41,9 +41,9 @@ export class VenueService {
 
   public search(p: () => SearchQuery) {
     return rxResource({
-      request: p,
-      loader: (params) => {
-        const p = toParams(params.request);
+      params: p,
+      stream: (request) => {
+        const p = toParams(request.params);
         return this.#httpClient.get<SearchResults<Summary>>('/api/venues', { params: p });
       },
     });

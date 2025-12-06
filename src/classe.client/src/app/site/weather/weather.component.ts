@@ -21,7 +21,7 @@ export class WeatherComponent {
   readonly #client = inject(HttpClient);
 
   protected readonly forecasts = rxResource({
-    loader: () => {
+    stream: () => {
       return this.#client.get<WeatherForecast[]>('/weatherforecast');
     },
   });

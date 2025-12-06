@@ -23,9 +23,9 @@ export class SearchComponent {
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 
   protected readonly classes = rxResource({
-    request: () => {
+    params: () => {
       return { ...this.qry(), all: false };
     },
-    loader: (params) => this.#classSvc.search(params.request),
+    stream: (request) => this.#classSvc.search(request.params),
   });
 }

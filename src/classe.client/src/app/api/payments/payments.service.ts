@@ -36,9 +36,9 @@ export class PaymentsService {
 
   public search(p: () => SearchQuery | { all: boolean }) {
     return rxResource({
-      request: p,
-      loader: (params) => {
-        const p = toParams(params.request as SearchQuery);
+      params: p,
+      stream: (request) => {
+        const p = toParams(request.params as SearchQuery);
         return this.#httpClient.get<SearchResults<Payment>>('/api/payments', {
           params: p,
         });
