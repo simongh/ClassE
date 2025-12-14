@@ -1,4 +1,11 @@
-<app-page-header>Class Management</app-page-header>
+<app-page-header
+  >Class Management
+  <div class="btn-list">
+    <a class="btn btn-primary" [routerLink]="'0'">
+      <svg plus-icon></svg> New
+    </a>
+  </div>
+</app-page-header>
 <div class="page-body">
   <div class="container-xl">
     <app-card>

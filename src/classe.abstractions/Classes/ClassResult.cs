@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ClassE.Models;
 
 namespace ClassE.Classes
 {
@@ -9,23 +8,28 @@ namespace ClassE.Classes
 
         public string StartTime { get; init; } = null!;
 
-        public int Duration { get; init; }
+        public byte Duration { get; init; }
 
         public bool IsActive { get; init; }
 
-        public VenueResult Venue { get; init; } = null!;
+        public float Cost { get; init; }
 
-        public IEnumerable<LookUpResult> Bookings { get; init; } = null!;
+        public Models.LookUpResult Venue { get; init; } = null!;
 
-        public IEnumerable<LookUpResult> WaitingList { get; init; } = null!;
+        public IEnumerable<Models.LookUpResult> Bookings { get; init; } = [];
+
+        public IEnumerable<Models.LookUpResult> WaitingList { get; init; } = [];
+
+        public IEnumerable<SessionResult> Sessions { get; init; } = [];
 
         private class Mapping : Profile
         {
             public Mapping()
             {
                 CreateMap<Entities.Class, ClassResult>()
-                    .ForMember(p => p.Bookings, config => config.MapFrom(c => c.Bookings.Where(b => !b.WaitingList)))
-                    .ForMember(p => p.WaitingList, config => config.MapFrom(c => c.Bookings.Where(b => b.WaitingList)));
+                    .ForMember(p => p.Bookings, config => config.Ignore())
+                    .ForMember(p => p.WaitingList, config => config.Ignore())
+                    .ForMember(p => p.Sessions, config => config.Ignore());
             }
         }
     }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 
 import { SearchQuery, toParams } from '@app-types/search-query';
@@ -15,24 +16,15 @@ import { Summary } from './summary';
 export class ClassesService {
   readonly #httpClient = inject(HttpClient);
 
-  public search(query: { all: boolean } & SearchQuery) {
-    return of<SearchResults<Summary>>({
-      total: 41,
-      results: [
-        {
-          id: 0,
-          startTime: '18:00',
-          duration: 60,
-          dayOfWeek: 'Thursday',
-          isActive: true,
-          booked: 5,
-          waiting: 5,
-          venue: {
-            id: 0,
-            name: ' the hall',
-          },
-        },
-      ],
+  public search(p: () => SearchQuery) {
+    return rxResource({
+      params: p,
+      stream: (query) => {
+        const p = toParams(query.params);
+        return this.#httpClient.get<SearchResults<Summary>>('/api/classes', {
+          params: p,
+        });
+      },
     });
     // let p = toParams(query);
 
@@ -45,8 +37,11 @@ export class ClassesService {
     // });
   }
 
-  public get(id: number) {
-    return this.#httpClient.get<Class>(`/api/classes/${id}`);
+  public get(p: () => number) {
+    return rxResource({
+      params: p,
+      stream: (request) => this.#httpClient.get<Class>(`/api/classes/${request.params}`),
+    });
   }
 
   public update(id: number, theClass: ClassModel) {

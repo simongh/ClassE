@@ -1,0 +1,25 @@
+<app-card>
+  <app-card-header title="Sessions">
+    <div class="btn-list">
+      <button class="btn btn-0">Add</button>
+    </div>
+  </app-card-header>
+  <table class="table card-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Expected</th>
+        <th>Attended</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(s of items(); track s.id) {
+      <tr>
+        <td>{{ s.date | date : "dd MMM yyyy" }}</td>
+        <td>{{ s.expected }}</td>
+        <td>{{ s.attended }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</app-card>

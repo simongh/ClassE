@@ -2,6 +2,7 @@ import { dayOfWeek } from '@app-types/dayOfWeek';
 import { timeString } from '@app-types/timeString';
 
 export interface ClassModel {
+  id: number;
   dayOfWeek: dayOfWeek;
   startTime: timeString;
   duration: number;

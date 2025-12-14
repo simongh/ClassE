@@ -6,30 +6,49 @@
       <div class="col-md-12">
         <app-card>
           <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-3 col-form-label">Start Date</div>
-              <div class="col form-control-plaintext">2025-01-01</div>
+            <div class="row mb-2">
+              <div class="col-3 col-form-label">Day</div>
+              <div class="col form-control-plaintext">
+                {{ class().dayOfWeek }}
+              </div>
+              <div class="col-3 col-form-label">Active</div>
+              <div class="col form-control-plaintext">
+                {{ class().isActive ? "Yes" : "No" }}
+              </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-3 col-form-label">End Date</div>
-              <div class="col form-control-plaintext">2025-01-01</div>
+            <div class="row mb-2">
+              <div class="col-3 col-form-label">Start Time</div>
+              <div class="col form-control-plaintext">
+                {{ class().startTime }}
+              </div>
+              <div class="col-3 col-form-label">Duration</div>
+              <div class="col form-control-plaintext">
+                {{ class().duration }} mins
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-3 col-form-label">Cost</div>
+              <div class="col form-control-plaintext">
+                {{ class().cost | currency }}
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-3 col-form-label">Venue</div>
+              <div class="col form-control-plaintext">
+                <a href="#">{{ class().venue.name }}</a>
+              </div>
             </div>
           </div>
         </app-card>
       </div>
-      <div class="col-md-6">
-        <app-card>
-          <div class="card-body">
-            <h3 class="card-title">Booked</h3>
-          </div>
-        </app-card>
+      <div class="col-md-12">
+        <app-sessions [items]="class().sessions" />
       </div>
       <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title">Waiting List</h3>
-          </div>
-        </div>
+        <app-name-list title="Booked" [items]="class().bookings" />
+      </div>
+      <div class="col-md-6">
+        <app-name-list title="Waiting List" [items]="class().waitingList" />
       </div>
     </div>
   </div>

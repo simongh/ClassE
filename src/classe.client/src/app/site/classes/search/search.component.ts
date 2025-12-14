@@ -7,13 +7,14 @@ import { CardsModule } from '@components/cards';
 import { PageHeaderComponent } from '@components/page-header/page-header.component';
 import { PagerComponent } from '@components/pager/pager.component';
 import { SorterComponent } from '@components/sorter/sorter.component';
+import { PlusIcon } from '@components/svg';
 
 import { ClassesService } from '@api/classes/classes.service';
 import { withDefaultFilters } from '@app-types/search-query';
 
 @Component({
   selector: 'app-search',
-  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent, CardsModule],
+  imports: [PageHeaderComponent, RouterLink, PagerComponent, SorterComponent, CardsModule,PlusIcon],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
 })
@@ -22,10 +23,5 @@ export class SearchComponent {
 
   protected readonly qry = injectQueryParams((p) => withDefaultFilters(p));
 
-  protected readonly classes = rxResource({
-    params: () => {
-      return { ...this.qry(), all: false };
-    },
-    stream: (request) => this.#classSvc.search(request.params),
-  });
+  protected readonly classes = this.#classSvc.search(() => this.qry());
 }

@@ -1,0 +1,12 @@
+<app-card>
+  <app-card-header [title]="title()!"></app-card-header>
+  <table class="table card-table">
+    <tbody>
+      @for(p of items(); track p.id) {
+      <tr>
+        <td>{{ p.name }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</app-card>

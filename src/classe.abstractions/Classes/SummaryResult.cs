@@ -7,15 +7,12 @@ namespace ClassE.Classes
         public int Id { get; init; }
 
         public DayOfWeek DayOfWeek { get; init; }
-        public DateTime StartDate { get; init; }
 
-        public DateTime EndDate { get; init; }
+        public string StartTime { get; init; } = null!;
 
-        public int StartTime { get; init; }
+        public byte Duration { get; init; }
 
-        public int Duration { get; init; }
-
-        public VenueResult Venue { get; init; } = null!;
+        public Models.LookUpResult Venue { get; init; } = null!;
 
         public int Booked { get; init; }
 

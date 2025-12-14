@@ -15,6 +15,8 @@ namespace ClassE.Models
 
                 CreateMap<Entities.Person, LookUpResult>()
                     .ForMember(p => p.Name, config => config.MapFrom(b => b.FirstName + " " + b.LastName));
+
+                CreateMap<Entities.Venue, LookUpResult>();
             }
         }
     }
